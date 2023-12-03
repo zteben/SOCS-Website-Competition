@@ -1,4 +1,1 @@
 # SOCS-Website-Competition
-
-
-UWU
