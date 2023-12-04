@@ -1,29 +1,27 @@
-import SERVERSidebar from "SERVERSidebar";
-
 export const SERVERSidebarData = [
   {
-    title: "SERVER 1",
+    title: "CHANNEL 1",
     path: "../Pages/Home.js",
     class: "nav-text",
   },
   {
-    title: "SERVER 2",
-    path: "/SERVER 2",
+    title: "CHANNEL 2",
+    path: "/CHANNEL 2",
     class: "nav-text",
   },
   {
-    title: "SERVER 3",
-    path: "/SERVER 3",
+    title: "CHANNEL 3",
+    path: "/CHANNEL 3",
     class: "nav-text",
   },
   {
-    title: "SERVER 4",
-    path: "/SERVER 4",
+    title: "CHANNEL 4",
+    path: "/CHANNEL 4",
     class: "nav-text",
   },
   {
-    title: "SERVER 5",
-    path: "/SERVER 5",
+    title: "CHANNEL 5",
+    path: "/CHANNEL 5",
     class: "nav-text",
   },
 ];

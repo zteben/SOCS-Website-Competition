@@ -1,6 +1,6 @@
 import React from "react";
-import "./SERVERSidebar.css";
-import { SERVERSidebarData } from "./SERVERSidebarData.js";
+import "./ServerSidebar.css";
+import { ServerSidebar } from "./ServerSidebarData.js";
 // Placeholder channels data
 const Mysidebar = {
   height: "100vh",
@@ -8,17 +8,17 @@ const Mysidebar = {
   overflowX: "hidden",
   overflowY: "scroll",
 };
-export default function SERVERSidebar({ SERVERsidebar }) {
+export default function serverSidebar({ serversidebar }) {
   return (
     <>
-      <div className={SERVERsidebar ? "nav-menu active" : "nav-menu"}>
+      <div className={ServerSidebar ? "nav-menu active" : "nav-menu"}>
         <div className="nav-title">
           <p>CHANNELS</p>
         </div>
         {/* Render each channel */}
         <ul className="nav-menu-items">
           <div style={Mysidebar}>
-            {SERVERSidebarData.map((item, index) => {
+            {ServerSidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.class}>
                   <span>{item.title}</span>

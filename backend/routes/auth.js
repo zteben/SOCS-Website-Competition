@@ -79,7 +79,7 @@ router.delete('/logout', async (req, res) => {
 });
 
 function generateAccessToken(payload){
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' });
 }
 
 module.exports = router;

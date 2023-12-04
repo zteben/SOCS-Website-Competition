@@ -1,4 +1,4 @@
-export const DMSSidebarData = [
+export const directMessageSidebarData = [
     {
       title: "Person 1",
       path: "../Pages/Home.js",
@@ -25,5 +25,5 @@ export const DMSSidebarData = [
       class: "nav-text",
     },
   ];
-  export default DMSSidebarData;
+  export default directMessageSidebarData;
   

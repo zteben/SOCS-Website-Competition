@@ -8,7 +8,6 @@ npm-debug.log
 # React
 build/
 dist/
-*.env
 
 # MongoDB
 *.db

@@ -31,6 +31,9 @@ app.use('/auth', authRoutes);
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
+const boardRoutes = require('./routes/boards');
+app.use('/boards', boardRoutes);
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

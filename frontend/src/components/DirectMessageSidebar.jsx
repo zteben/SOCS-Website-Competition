@@ -1,22 +1,22 @@
 import React from "react";
-import { DMSSidebarData } from "./DMSSidebarData";
-import "./DMSsidebar.css";
+import { directMessageSidebarData } from "./DirectMessageSidebarData";
+import "./DirectMessageSidebar.css";
 const Mysidebar = {
   height: "100vh",
   width: "17rem",
   overflowX: "hidden",
   overflowY: "scroll",
 };
-export default function DMSSidebar({ DMSsidebar }) {
+export default function directMessageSidebar({ directmessagesidebar }) {
   return (
     <>
-      <nav className={DMSsidebar ? "nav-menu active" : "nav-menu"}>
+      <nav className={directmessagesidebar ? "nav-menu active" : "nav-menu"}>
         <div className="nav-title">
           <p>DIRECT MESSAGES</p>
         </div>
         <ul className="nav-menu-items">
           <div style={Mysidebar}>
-            {DMSSidebarData.map((item, index) => {
+            {directMessageSidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.class}>
                   <span>{item.title}</span>
