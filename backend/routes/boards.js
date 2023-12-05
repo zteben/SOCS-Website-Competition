@@ -2,12 +2,52 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Board = require('../models/Board');
-//const BoardChannel = require('../models/BoardChannel')
+const BoardChannel = require('../models/BoardChannel')
 const BoardMember = require('../models/BoardMember')
 const authenticateToken = require('../middleware/authenticateToken');
 
 
+//get board
+router.get('/getBoard', authenticateToken, async (req, res) => {
+    try {
+      const  {name}  = req.body;
+      const user = await User.findOne({ username: req.user.username});
+      console.log(user);
+      if (!name) {
+        return res.status(400).json({ error: 'Board name is required' });
+      }
+  
+      const board = await Board.findOne({ name: name });
+      if (!board) {
+        return res.status(404).json({ error: 'Board not found' });
+      }
+      if ( !(await BoardMember.findOne({ user: user._id, board: board._id }))) {
+        return res.status(403).json({ error: 'You are not a member of this board' });
+        }
+      res.json(board);
+    } 
+    
+    
+    catch (error) {
+      console.error('Error fetching board data:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
+
+//get boards
+router.get('/getAllBoards', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.user.username});
+        const boards = await BoardMember.find({ user: user._id });
+        res.json(boards);
+
+    } catch (error) {
+        console.error('Error fetching user information:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+);
 // create board
 router.post('/createBoard', authenticateToken, async (req, res) => {
     try {
@@ -105,36 +145,36 @@ router.post('/addMember', authenticateToken, async (req, res) => {
 // remove member
 
 // leave
-router.delete('/leaveBoard', authenticateToken, async (req, res) => {
-    try {
-        const {boardname} = req.body;
-        const board = await Board.findOne({ name: boardname});
-        if (!board) {
-            return res.status(404).send('Board not found.' );
-        }
-        // Check if the user has the necessary permissions to delete the board
-        const user = await User.findOne({ username: req.user.username });
-        const boardMember = await BoardMember.findOne({ user: user._id, board: board._id });
+// router.delete('/leaveBoard', authenticateToken, async (req, res) => {
+//     try {
+//         const {boardname} = req.body;
+//         const board = await Board.findOne({ name: boardname});
+//         if (!board) {
+//             return res.status(404).send('Board not found.' );
+//         }
+//         // Check if the user has the necessary permissions to delete the board
+//         const user = await User.findOne({ username: req.user.username });
+//         const boardMember = await BoardMember.findOne({ user: user._id, board: board._id });
         
-        if (!boardMember) {
-            return res.status(403).send('You are not a member of this board.');
-        }
+//         if (!boardMember) {
+//             return res.status(403).send('You are not a member of this board.');
+//         }
 
-        // Check if the user is the owner (admin)
-        if (boardMember.isAdmin) {
-            return res.status(403).send('You cannot leave as the owner.');
-        }
+//         // Check if the user is the owner (admin)
+//         if (boardMember.isAdmin) {
+//             return res.status(403).send('You cannot leave as the owner.');
+//         }
 
-        //leave the board
-        const leaveboard = await BoardMember.deleteOne({ user: user._id, board: board._id });
+//         //leave the board
+//         const leaveboard = await BoardMember.deleteOne({ user: user._id, board: board._id });
 
-        res.status(200).send( 'Left board successfully.' );
+//         res.status(200).send( 'Left board successfully.' );
 
-    } catch (error) {
-        console.error('Error fetching user information:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+//     } catch (error) {
+//         console.error('Error fetching user information:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 // add channel
 
 // remove channel
