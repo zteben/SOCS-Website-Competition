@@ -107,10 +107,10 @@ router.delete('/deleteBoard', authenticateToken, async (req, res) => {
 router.post('/addMember', authenticateToken, async (req, res) => {
     try {
         
-        const {username, boardname} = req.body; // username of person to add
+        const {username, name} = req.body; // username of person to add
         const user_to_add = await User.findOne({ username: username});
         const user = await User.findOne({ username: req.user.username});
-        const board = await Board.findOne({ name: boardname}); 
+        const board = await Board.findOne({ name: name}); 
         // chedk if board exists
         if (!board) {
             return res.status(404).send('board does not exist');
@@ -143,7 +143,47 @@ router.post('/addMember', authenticateToken, async (req, res) => {
 });
 
 // remove member
+router.delete('/deleteMember', authenticateToken, async (req, res) => {
+    try {
+        
+        const {username, name} = req.body; // username of person to delete, name of board
+        const user_to_delete = await User.findOne({ username: username});
+        const user = await User.findOne({ username: req.user.username});
+        console.log(user_to_delete);
+        const board = await Board.findOne({ name: name}); 
+        console.log(board);
+        // chedk if board exists
+        if (!board) {
+            return res.status(404).send('board does not exist');
+          }
+        //check if user exists
+        if (!user_to_delete) {
+            return res.status(404).send('user does not exist');
+          }
+        // check if user is already a member
+        if (await !BoardMember.findOne({ user: user_to_delete._id, board: board._id})) {
+            return res.status(400).send("not a member");
+          }
+        // check if its an admin calling the function
+        const isAdmin = await BoardMember.findOne({user: user._id, board: board._id, isAdmin: true});
+        if (!isAdmin) {
+            res.status(400).send('you are not an admin');
+        }
 
+        //delete member
+        
+        const deleteMember = await BoardMember.findOneAndDelete( { user: user_to_delete.id, board: board._id  } );
+
+        if (!deleteMember) {
+            return res.status(404).send('Board not found.' );
+        }
+        res.status(200).send( 'Board deleted successfully.' );
+
+    } catch (error) {
+        console.error('Error fetching user information:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 // leave
 // router.delete('/leaveBoard', authenticateToken, async (req, res) => {
 //     try {
