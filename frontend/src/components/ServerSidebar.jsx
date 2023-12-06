@@ -1,24 +1,24 @@
-import React from "react";
-import "./ServerSidebar.css";
-import { ServerSidebar } from "./ServerSidebarData.js";
+import React from 'react';
+import './ServerSidebar.css';
+import { SERVERSidebarData } from './ServerSidebarData';
 // Placeholder channels data
 const Mysidebar = {
-  height: "100vh",
-  width: "17rem",
-  overflowX: "hidden",
-  overflowY: "scroll",
+  height: '100vh',
+  width: '17rem',
+  overflowX: 'hidden',
+  overflowY: 'scroll',
 };
 export default function serverSidebar({ serversidebar }) {
   return (
     <>
-      <div className={ServerSidebar ? "nav-menu active" : "nav-menu"}>
+      <nav className={serversidebar ? 'nav-menu active' : 'nav-menu'}>
         <div className="nav-title">
           <p>CHANNELS</p>
         </div>
         {/* Render each channel */}
         <ul className="nav-menu-items">
           <div style={Mysidebar}>
-            {ServerSidebarData.map((item, index) => {
+            {SERVERSidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.class}>
                   <span>{item.title}</span>
@@ -27,7 +27,7 @@ export default function serverSidebar({ serversidebar }) {
             })}
           </div>
         </ul>
-      </div>
+      </nav>
     </>
   );
 }
