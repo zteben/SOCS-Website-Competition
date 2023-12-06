@@ -1,20 +1,81 @@
 // DiscussionBoard.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './DiscussionBoard.css';
+import { Link } from 'react-router-dom';
 
 const DiscussionBoard = ({ boardName }) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/isAdmin/checkAdminStatus?name=${boardName}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE4ODY0MDUsImV4cCI6MTcwMTk3MjgwNX0.DB0RrRd_dTIqQbQU5Z6RaOx201CL6SHSL4yd3FwOK0s`, // Replace with your actual access token
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setIsAdmin(data.isAdmin);
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+      }
+    };
+
+    checkAdminStatus();
+  }, [boardName]);
+
+  const handleDeleteClick = async (event) => {
+    event.preventDefault(); // Prevents the default behavior (e.g., link navigation)
+
+    try {
+      const response = await fetch('http://localhost:3000/boards/deleteBoard', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE4ODY0MDUsImV4cCI6MTcwMTk3MjgwNX0.DB0RrRd_dTIqQbQU5Z6RaOx201CL6SHSL4yd3FwOK0s`, // Replace with your actual access token
+        },
+        body: JSON.stringify({
+          boardname: boardName,
+        }),
+      });
+
+      if (response.status === 200) {
+        // Reload the page or update the state to reflect the changes
+        window.location.reload();
+      } else {
+        console.error('Failed to delete board');
+      }
+    } catch (error) {
+      console.error('Error deleting board:', error);
+    }
+  };
+
   return (
     <div className="card">
       <div className="container">
         <h4>
           <b>{boardName}</b>
         </h4>
-        <a href={`/boards/${boardName}`}>Select Board</a>
       </div>
+      {isAdmin && (
+        <div className="delete-icon" onClick={handleDeleteClick}>
+          <span role="img" aria-label="Delete">
+            ❌
+          </span>
+        </div>
+      )}
     </div>
   );
 };
 
-// make it such that clicking on a board component leads to TMP.js page with that *boardName or id as input?*
-// sidebar and messaging.js depend on TMP.js
 export default DiscussionBoard;
