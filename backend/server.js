@@ -5,13 +5,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const port = 3000
+const port = 3000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017/temp");
+mongoose.connect('mongodb://localhost:27017/temp');
 
 const connection = mongoose.connection;
 
@@ -23,7 +23,6 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully');
 });
 
-
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
@@ -31,6 +30,9 @@ app.use('/auth', authRoutes);
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
+const friendsRoutes = require('./routes/friends');
+app.use('/api/friends', friendsRoutes);
+
 app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${port}`);
 });
