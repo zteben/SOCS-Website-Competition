@@ -1,5 +1,6 @@
 // select.js
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import DiscussionBoard from '../components/DiscussionBoard'; // Adjust the path based on your project structure
 import DirectMessageSidebar from '../components/DirectMessageSidebar';
 
@@ -12,7 +13,7 @@ const Select = () => {
     const fetchBoards = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/boards/getAllBoards',
+          'http://localhost:3000/boards/getAllBoardNames',
           {
             method: 'GET',
             headers: {
@@ -33,18 +34,18 @@ const Select = () => {
 
   return (
     <div>
-      {/* Add ServerSidebar on the left */}
       <div>
-        <h1>Sidetest Page</h1>
-        {/* Your home page content */}
         <DirectMessageSidebar directmessagesidebar={true} />
       </div>
-      {/* DiscussionBoard components on the right */}
-      <div style={{ marginLeft: '17rem' }}>
-        <h1>Selecting Page</h1>
-        <div>
+      <div
+        style={{ marginLeft: '17rem', paddingLeft: '5rem', marginTop: '2rem' }}
+      >
+        <h1>Your Discussion Boards</h1>
+        <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
-            <DiscussionBoard key={board._id} boardName={board.name} />
+            <Link key={board._id} to={`/boards/${board.name}`}>
+              <DiscussionBoard boardName={board.name} />
+            </Link>
           ))}
         </div>
       </div>

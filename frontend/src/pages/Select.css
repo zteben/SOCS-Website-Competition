@@ -1,0 +1,13 @@
+/* Select.css */
+.select-container {
+  display: flex; /* Make it a flex container */
+}
+
+/* .server-sidebar { */
+/* Add any styling you need for the sidebar */
+/* } */
+
+.discussion-board-container {
+  flex: 1; /* Let it take up the remaining space */
+  padding: 16px; /* Add padding or any other styling as needed */
+}
