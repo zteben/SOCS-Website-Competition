@@ -33,6 +33,9 @@ app.use('/users', userRoutes);
 const friendsRoutes = require('./routes/friends');
 app.use('/api/friends', friendsRoutes);
 
+const boardRoutes = require('./routes/boards');
+app.use('/boards', boardRoutes);
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
