@@ -10,14 +10,14 @@
   
   
   html,body {
-      /* height: 100vh */
+      min-height: 100vh;
       /* display: flex;
       flex-flow: column;
       height: 100%; */
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden; 
+      /* height: 100%; */
+      overflow: auto; 
       display: flex;
       flex-direction: column;
   }
@@ -45,6 +45,7 @@
       justify-content: space-between; /* Aligns items to the start and end of the container */
       align-items: center;
       display: flex;
+      margin-top: 1em;
       /* padding: 0; */
       /* width: 100%; */
   }
@@ -185,7 +186,7 @@
     /* display: flex;
     flex-flow: column; */
     
-    flex: 1; /* Take up remaining vertical space */
+    flex: 1; 
     overflow-y: auto;
     /* scroll-snap-type: y mandatory;  */
   }
@@ -479,24 +480,24 @@
     
   
     /* width */
-  ::-webkit-scrollbar {
+  #container::-webkit-scrollbar {
     width: 0.5em;
   }
   
   /* Track */
-  ::-webkit-scrollbar-track {
+  #container::-webkit-scrollbar-track {
     background:var(--backgroundColour)
   }
   
   /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--backgroundColour);
+  #container::-webkit-scrollbar-thumb {
+    background: var(--headerAndFooter);
     border-radius: 8px;
   }
   
   /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #4374cf;
+  #container::-webkit-scrollbar-thumb:hover {
+    background: var(--headerAndFooter);
     cursor: pointer;
   }
   

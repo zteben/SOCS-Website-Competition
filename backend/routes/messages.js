@@ -71,19 +71,19 @@ router.post('/sendCH', authenticateToken, async (req, res) => {
 
 router.get('/getCHs', authenticateToken, async (req, res) => {
     try {
-        // console.log("first")
+        console.log("first")
         const { channelName } = req.query;
         // const { channelName } = req.body;
         const currChannel = await Channel.findOne({ name: channelName});
-        // console.log("currChannel")
-        // console.log(currChannel);
+        console.log("currChannel")
+        console.log(currChannel);
         const messages = await MessageCH.find(
             { channel: currChannel._id }
         );
-        // console.log("messages");
-        // console.log(messages);
+        console.log("messages");
+        console.log(messages);
         res.json(messages);
-        // console.log("bonk");
+        console.log("bonk");
 
     } catch (error) {
         console.error('Error fetching user information:', error);

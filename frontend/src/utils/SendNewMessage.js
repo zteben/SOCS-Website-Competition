@@ -1,6 +1,6 @@
 import { sendChannelMessage } from './../api'
 
-export function sendNewMessage(newMessage, currChannel, currUser, currProfilePic, setMessages, setNewMessage) {
+export function sendNewMessage(newMessage, currChannel, currUser, setMessages, setNewMessage) {
     const trimmedMessage = newMessage.replace(/\s*$/, '');
     
     if (trimmedMessage !== "") {
@@ -15,7 +15,7 @@ export function sendNewMessage(newMessage, currChannel, currUser, currProfilePic
         message: trimmedMessage,
         username: currUser, // Replace with the actual username
         timestamp: Date.now(),
-        "userProfilePicture": currProfilePic
+        "userProfilePicture": ''
       };
       
       

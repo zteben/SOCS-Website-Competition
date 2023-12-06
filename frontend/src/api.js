@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const backendUrl = 'http://localhost:3000'; // Replace with your actual backend URL
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxvIiwiaWF0IjoxNzAxNzIyMzM0LCJleHAiOjE3MDE4MDg3MzR9.tQk4gkGriHRlYTfd6R-_Y1_iJLG3A7uhLCaVeD5FE18'; 
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoYXJsaWUxMjMiLCJpYXQiOjE3MDE4Mzk0ODIsImV4cCI6MTcwMTkyNTg4Mn0.aauoCPsa8cewEnquuib73zwLEBcHP58zV0Bm-puaFps'; 
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -57,7 +57,7 @@ async function sendChannelMessage(sender, receiver, message, timestamp) {
       
     });
 
-    console.log("HEWWO?")
+    // console.log("HEWWO?")
 
     const savedMessage = response.data;
     console.log('Saved Message:', savedMessage);
@@ -75,7 +75,7 @@ async function sendChannelMessage(sender, receiver, message, timestamp) {
 
 async function fetchChannelMessages(currChannelName) {
   try {
-    // console.log('Fetching messages for channel:', currChannelName);
+    console.log('Fetching messages for channel:', currChannelName);
 
     const response = await axios.get(`${backendUrl}/messages/getCHs`, {
       headers: {
@@ -91,7 +91,7 @@ async function fetchChannelMessages(currChannelName) {
 
     const messages = response.data;
 
-    // console.log('Fetched messages:', messages);
+    console.log('Fetched messages:', messages);
 
     return messages;
   } catch (error) {

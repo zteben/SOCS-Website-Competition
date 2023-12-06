@@ -6,7 +6,7 @@ import { FaEllipsisH } from 'react-icons/fa';
 import { autoResizeTextarea } from './../utils/AutoResizeTextArea';
 import { getUserData } from './../api';
 
-const Message = ({ sender, timestamp, message, userProfilePicture }) => {
+const Message = ({ sender, timestamp, message, userProfilePicture, currentUserName }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editedMessage, setEditedMessage] = useState(message);
@@ -16,12 +16,14 @@ const Message = ({ sender, timestamp, message, userProfilePicture }) => {
   const editingTextRef = useRef(null);
 
   useEffect(() => {
+    setSenderObject(null);
     const fetchData = async () => {
       try {
-        console.log('sender:', sender);
+        console.log('sender id:', sender);
         const userObject = await getUserData(sender);
-        console.log('Fetched userObject:', userObject);
+        // console.log('Fetched userObject:', userObject);
         setSenderObject(userObject);
+        console.log('sender:', userObject.username);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -54,7 +56,7 @@ const Message = ({ sender, timestamp, message, userProfilePicture }) => {
     window.location.href = 'https://example.com';
   };
 
-
+  const isCurrentUser = sender.username === currentUserName;
 
   return (
     // <div className='display-message'>
@@ -147,6 +149,7 @@ const Message = ({ sender, timestamp, message, userProfilePicture }) => {
           )}
         {/* </div> */}
       </div>
+      {isCurrentUser && (
       <Tooltip
         html={(
           <div className="tooltip-editDelete">
@@ -166,6 +169,7 @@ const Message = ({ sender, timestamp, message, userProfilePicture }) => {
           <FaEllipsisH />
         </button>
       </Tooltip>
+      )}
     </div>
   );
 };

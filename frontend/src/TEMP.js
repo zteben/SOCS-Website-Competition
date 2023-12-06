@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import axios from 'axios';
+// import axios from 'axios';
 import './TEMP.css';
 import { FaArrowRight } from 'react-icons/fa'; 
 import Message from './components/Message';

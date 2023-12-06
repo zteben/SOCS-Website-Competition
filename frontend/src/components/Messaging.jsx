@@ -5,16 +5,19 @@ import { FaArrowRight } from 'react-icons/fa';
 import Message from './Message';
 import { autoResizeTextarea } from './../utils/AutoResizeTextArea';
 import { sendNewMessage } from './../utils/SendNewMessage';
-import { fetchChannelMessages } from './api';
+import { fetchChannelMessages } from './../api';
 import Settings from './Settings'; 
 
 
 const socket = io('mongodb://localhost:27017');
 
 
-const Message = ({ currChannel, currUser }) => {
+const Messaging = ({ currChannelName, currUserName }) => {
 
-
+console.log("currChannel name")
+console.log(currChannelName)
+console.log("curr user username")
+console.log(currUserName)
 // const [channel, setChannel] = useState({
 //     "name": "general",
 // });
@@ -40,27 +43,27 @@ const Message = ({ currChannel, currUser }) => {
   const channelNameRef = useRef(null);
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    // Measure the height of the footer and set it
-    const footer = footerRef.current;
-    if (footer) {
-      setFooterHeight(footer.getBoundingClientRect().height);
-    }
+  // useEffect(() => {
+  //   // Measure the height of the footer and set it
+  //   const footer = footerRef.current;
+  //   if (footer) {
+  //     setFooterHeight(footer.getBoundingClientRect().height);
+  //   }
 
-    // Measure the height of the channel name div and set it
-    const channelNameHeight = channelNameRef.current;
-    if (channelNameHeight) {
-      setChannelNameHeight(channelNameHeight.getBoundingClientRect().height);
-    }
-  }, []);
+  //   // Measure the height of the channel name div and set it
+  //   const channelNameHeight = channelNameRef.current;
+  //   if (channelNameHeight) {
+  //     setChannelNameHeight(channelNameHeight.getBoundingClientRect().height);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    // Set the container height dynamically based on the footer height
-    const container = containerRef.current;
-    if (container) {
-        container.style.height = `calc(100% - ${footerHeight + channelNameHeight}px)`;
-    }
-  }, [footerHeight]);
+  // useEffect(() => {
+  //   // Set the container height dynamically based on the footer height
+  //   const container = containerRef.current;
+  //   if (container) {
+  //       container.style.height = `calc(100% - ${footerHeight + channelNameHeight}px)`;
+  //   }
+  // }, [footerHeight]);
   
 
   useEffect(() => {
@@ -75,7 +78,7 @@ const Message = ({ currChannel, currUser }) => {
     const fetchData = async () => {
       try {
         // Fetch channel messages when the component mounts
-        const messages = await fetchChannelMessages(currChannel.name); // HARD-CODED
+        const messages = await fetchChannelMessages(currChannelName); // HARD-CODED
         // Set the fetched messages in the state
         setMessages(messages);
       } catch (error) {
@@ -84,7 +87,7 @@ const Message = ({ currChannel, currUser }) => {
     };
   
     fetchData();
-  }, [currChannel.name]); // The dependency array ensures the effect runs only when channelName changes
+  }, [currChannelName]); // The dependency array ensures the effect runs only when channelName changes
 
 
 
@@ -92,17 +95,17 @@ const Message = ({ currChannel, currUser }) => {
   
 
   return (
-    <div style={{backgroundColor: '#fff3ed', height: '100vh'}}>
+    <div style={{ backgroundColor: '#fff3ed', height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <div className="channel-name" ref={channelNameRef}>
-            &nbsp;&nbsp;# {currChannel.name}
+            &nbsp;&nbsp;# {currChannelName}
             <Settings toggleOverlay={toggleOverlay} />
             {/* <Settings /> */}
         </div>
         
         {/* <div class="scroll"> */}
-        <div id="container" ref={containerRef}> 
+        <div id="container" ref={containerRef} style={{ flex: 1, overflowY: 'auto' }}>
             <p class="welcome">
-                Welcome to {currChanel.name}!
+                Welcome to {currChannelName}!
             </p>
             <p class="welcome-sub">
                 Feel free to send the first message to get started.
@@ -110,11 +113,11 @@ const Message = ({ currChannel, currUser }) => {
             <div class='all-messages'>
                 {messages.map((message) => (
                 <Message
-                    // key={message._id} // Don't forget to add a unique key
                     sender={message.sender}
                     timestamp={message.timestamp}
                     message={message.message}
                     userProfilePicture={message.userProfilePicture}
+                    currentUserName={currUserName}
                 />
                 ))}
             </div>
@@ -123,7 +126,7 @@ const Message = ({ currChannel, currUser }) => {
         <div class="message-form" ref={footerRef} disabled={isOverlayActive}>
             <div class="message-div" style={{borderRadius: "5em", backgroundColor: isOverlayActive ? 'black' : '#fff3ed', opacity: isOverlayActive ? 0.3: 1, cursor: isOverlayActive ? 'not-allowed': 'auto'}} disabled={isOverlayActive}>
             <textarea
-                placeholder={`Message #${currChanel.name}`}
+                placeholder={`Message #${currChannelName}`}
                 value={newMessage}
                 onChange={(e) => {
                     setNewMessage(e.target.value);
@@ -133,7 +136,7 @@ const Message = ({ currChannel, currUser }) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault(); // Prevents the default behavior (e.g., line break)
                         if (newMessage.trim() !== "") {
-                            sendNewMessage(newMessage, currChanel.name, currUser.username, currUser.userProfilePicture, setMessages, setNewMessage);
+                            sendNewMessage(newMessage, currChannelName, currUserName, setMessages, setNewMessage);
                           }
                         // sendNewMessage(newMessage, setMessages, setNewMessage);
                     }
