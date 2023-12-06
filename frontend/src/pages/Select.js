@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DiscussionBoard from '../components/DiscussionBoard'; // Adjust the path based on your project structure
 import DirectMessageSidebar from '../components/DirectMessageSidebar';
-
+<style></style>;
 const Select = () => {
   // Assume you have a state to store the list of boards
   const [boards, setBoards] = useState([]);
@@ -38,7 +38,12 @@ const Select = () => {
         <DirectMessageSidebar directmessagesidebar={true} />
       </div>
       <div
-        style={{ marginLeft: '17rem', paddingLeft: '5rem', marginTop: '2rem' }}
+        style={{
+          marginLeft: '15rem',
+          marginRight: '1rem',
+          paddingLeft: '5rem',
+          marginTop: '2rem',
+        }}
       >
         <h1>Your Discussion Boards</h1>
         <div style={{ marginTop: '2rem' }}>
