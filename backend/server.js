@@ -36,6 +36,9 @@ app.use('/api/friends', friendsRoutes);
 const boardRoutes = require('./routes/boards');
 app.use('/boards', boardRoutes);
 
+const isAdminRoutes = require('./routes/isAdmin');
+app.use('/isAdmin', isAdminRoutes);
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
