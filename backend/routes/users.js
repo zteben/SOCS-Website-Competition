@@ -30,9 +30,27 @@ router.get('/getAllUserInfo', authenticateToken, async (req, res) => {
     }
 });
 
-router.get('/getUserObject', authenticateToken, async (req, res) => {
 
-})
+router.get('/getUserIdByUsername', authenticateToken, async (req, res) => {
+    try {
+        const { username } = req.query;
+
+        // Assuming there is a 'username' field in your User schema
+        const user = await User.findOne({ username });
+
+        if (user) {
+            res.json({ user });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+
+    } catch (error) {
+        console.error('Error fetching user ID by username:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 

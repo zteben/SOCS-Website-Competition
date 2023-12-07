@@ -49,6 +49,12 @@
       /* padding: 0; */
       /* width: 100%; */
   }
+
+  .settings{
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
   
   .settingsButton {
     color: var(--whiteText);
@@ -132,7 +138,7 @@
     opacity: 0; /* Set opacity to 0 for hidden messages */
     height: 0; /* Optionally, set height to 0 to collapse the hidden message */
     padding: 0; /* Optionally, remove padding for collapsed message */
-    overflow: hidden; /* Hide overflow for collapsed message */
+    /* overflow: hidden; Hide overflow for collapsed message */
   }
   
   .display-message:hover{
@@ -187,7 +193,7 @@
     flex-flow: column; */
     
     flex: 1; 
-    overflow-y: auto;
+    overflow-y: scroll;
     /* scroll-snap-type: y mandatory;  */
   }
   
@@ -373,6 +379,7 @@
       cursor: pointer;
       border: none;
       margin-right: 0.5em;
+      text-align: center;
     }
   
     .DMbutton {

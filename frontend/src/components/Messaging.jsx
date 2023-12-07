@@ -14,10 +14,7 @@ const socket = io('mongodb://localhost:27017');
 
 const Messaging = ({ currChannelName, currUserName }) => {
 
-console.log("currChannel name")
-console.log(currChannelName)
-console.log("curr user username")
-console.log(currUserName)
+
 // const [channel, setChannel] = useState({
 //     "name": "general",
 // });
@@ -78,7 +75,7 @@ console.log(currUserName)
     const fetchData = async () => {
       try {
         // Fetch channel messages when the component mounts
-        const messages = await fetchChannelMessages(currChannelName); // HARD-CODED
+        const messages = await fetchChannelMessages(currChannelName); 
         // Set the fetched messages in the state
         setMessages(messages);
       } catch (error) {
@@ -90,6 +87,35 @@ console.log(currUserName)
   }, [currChannelName]); // The dependency array ensures the effect runs only when channelName changes
 
 
+ 
+
+
+
+//   useEffect(() => {
+//     const container = containerRef.current;
+//     if (container) {
+//       container.scrollTop = container.scrollHeight;
+//     }
+//   }, [containerRef, messages]);
+
+  const handleDeleteMessage = (deletedMessageID) => {
+    // Log the deleted message and its ID to check if it's correct
+    console.log('Deleted Message:', deletedMessageID);
+  
+    // Update the state in the Messaging component to delete the message
+    setMessages((prevMessages) => {
+      // Log the previous messages to check their content
+      console.log('Previous Messages:', prevMessages);
+      console.log("deletedMessageID:", deletedMessageID);
+      const updatedMessages = prevMessages.filter((msg) => msg._id !== deletedMessageID);
+  
+      // Log the updated messages to check if the filtering is working as expected
+      console.log('Updated Messages:', updatedMessages);
+  
+      return updatedMessages;
+    });
+  };
+  
 
 
   
@@ -118,6 +144,8 @@ console.log(currUserName)
                     message={message.message}
                     userProfilePicture={message.userProfilePicture}
                     currentUserName={currUserName}
+                    onDelete={handleDeleteMessage}
+                    messageID={message._id}
                 />
                 ))}
             </div>
@@ -149,7 +177,7 @@ console.log(currUserName)
                 disabled={isOverlayActive}
             />
                 
-                <button disabled={isOverlayActive} onClick={() => sendNewMessage(newMessage, setMessages, setNewMessage)}>
+                <button disabled={isOverlayActive} onClick={() => sendNewMessage(newMessage, currChannelName, currUserName, setMessages, setNewMessage)}>
                 <FaArrowRight /> {/* Use the arrow icon */}
                 </button>
                 {/* <button onClick={sendNewMessage}>Send</button> */}

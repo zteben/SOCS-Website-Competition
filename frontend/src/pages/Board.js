@@ -7,7 +7,7 @@ import './../TEMP.css';
 import './../App.css';
 
 
-const TMP = () => {
+const board = () => {
   return (
     <div className="entirePage">
       <div className="board">Board</div>
@@ -23,7 +23,7 @@ const TMP = () => {
         <div className="messagingContainerStyle">
         <Messaging 
             currChannelName = {'general'} // channel object
-            currUserName = {'hello'} //user object
+            currUserName = {'CoolProf'} //user object
         />
         </div>
       </div>
@@ -32,4 +32,4 @@ const TMP = () => {
   );
 }
 
-export default TMP;
+export default board;

@@ -4,9 +4,9 @@ import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css';
 import { FaEllipsisH } from 'react-icons/fa'; 
 import { autoResizeTextarea } from './../utils/AutoResizeTextArea';
-import { getUserData } from './../api';
+import { getUserData, deleteCH } from './../api';
 
-const Message = ({ sender, timestamp, message, userProfilePicture, currentUserName }) => {
+const Message = ({ sender, timestamp, message, userProfilePicture, currentUserName, onDelete, messageID }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editedMessage, setEditedMessage] = useState(message);
@@ -19,11 +19,11 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
     setSenderObject(null);
     const fetchData = async () => {
       try {
-        console.log('sender id:', sender);
+        // console.log('sender id:', sender);
         const userObject = await getUserData(sender);
         // console.log('Fetched userObject:', userObject);
         setSenderObject(userObject);
-        console.log('sender:', userObject.username);
+        // console.log('sender:', userObject.username);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -32,12 +32,58 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
     fetchData();
   }, [sender]);
 
-  const handleDelete = () => {
-    // Perform any necessary delete action here
+  // const handleDelete = () => {
+  //   // Perform any necessary delete action here
+  //   // Call the onDelete callback to update the state in the parent component
+  //   console.log("DELETINGGGGG")
+  //   onDelete(messageID); // Pass the entire message object
+    
+  // };
 
-    // Hide the message
-    setIsVisible(false);
+  // const handleDelete = () => {
+  //   // Assuming messageID is the ID of the message you want to delete
+  
+  //   // Call the API endpoint to delete the message
+  //   fetch(`/api/deleteCH/${messageID}`, {
+      
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+  //       // The message was deleted successfully
+  //       console.log('Message deleted successfully');
+  //       // Perform any additional actions if needed
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error deleting message:', error);
+  //       // Handle the error or show a notification to the user
+  //     });
+  
+  //   // Call the onDelete callback to update the state in the parent component
+  //   onDelete(messageID);
+  // };
+
+  const handleDelete = async () => {
+    try {
+      
+      // Call the deleteCH function with the message ID
+      await deleteCH(messageID);
+
+      // Optionally, update your component state or perform other actions after successful deletion
+      console.log('Message deleted successfully');
+    } catch (error) {
+      // Handle errors, such as displaying an error message to the user
+      console.error('Error deleting message:', error.message);
+    }
+
+    onDelete(messageID)
   };
+  
+
+  //   // Hide the message
+  //   setIsVisible(false);
+  // };
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -56,12 +102,12 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
     window.location.href = 'https://example.com';
   };
 
-  const isCurrentUser = sender.username === currentUserName;
+  const isCurrentUser = senderObject?.username === currentUserName;
 
   return (
     // <div className='display-message'>
-    <div className={`display-message ${isVisible ? '' : 'hidden'}`}>
-      {isVisible}
+    <div className="display-message">
+      {/* {isVisible} */}
       <div className="pfpContainer">
         <Tooltip
           html={(
@@ -111,7 +157,15 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
           <p className='time'>{formatUnixTimestamp(timestamp)}</p>
         </div>
         {/* <div> */}
-        {isEditing ? (
+        <p className='message' style={{ whiteSpace: 'pre-line', overflowWrap: 'break-word' }}>
+              {editedMessage.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </p>
+        {/* {isEditing ? (
           <div className='editingText'>
             <textarea
               // className='edit-message'
@@ -146,18 +200,17 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
                 </React.Fragment>
               ))}
             </p>
-          )}
-        {/* </div> */}
+          )} */}
       </div>
       {isCurrentUser && (
       <Tooltip
         html={(
-          <div className="tooltip-editDelete">
+          // <div className="tooltip-editDelete">
             
-            <button className='editButton' onClick={(handleEdit)}>Edit</button>
+            // {/* <button className='editButton' onClick={(handleEdit)}>Edit</button> */}
             
             <button className='deleteButton' onClick={handleDelete}>Delete</button>
-          </div>
+          // {/* </div> */}
         )}
         position="top"
         // trigger="click" // Change the trigger to "click"

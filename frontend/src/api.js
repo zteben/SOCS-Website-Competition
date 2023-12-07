@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const backendUrl = 'http://localhost:3000'; // Replace with your actual backend URL
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNoYXJsaWUxMjMiLCJpYXQiOjE3MDE4Mzk0ODIsImV4cCI6MTcwMTkyNTg4Mn0.aauoCPsa8cewEnquuib73zwLEBcHP58zV0Bm-puaFps'; 
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNvb2xQcm9mIiwiaWF0IjoxNzAxOTI2MjY3LCJleHAiOjE3MDIwMTI2Njd9.87M-JuZ9cCKNH0wRuwRge5NdOh2PbQXA5KTepkKH7rg'; 
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -31,6 +31,28 @@ async function getUserData(userID) {
     return responseData;
 
     // return { pfp, username }
+
+  } catch (error) {
+    console.error('API Error:', error.message);
+    throw error;
+  } 
+}
+
+async function getUserIdByUsername(username) {
+  try {
+    const response = await axios.get(`${backendUrl}/users/getUserIdByUsername`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      params: {
+        username: username
+      }
+    });
+
+    const responseData = response.data;
+
+    return responseData.userId;
 
   } catch (error) {
     console.error('API Error:', error.message);
@@ -72,10 +94,32 @@ async function sendChannelMessage(sender, receiver, message, timestamp) {
   } 
 }
 
+async function deleteCH(deletedMessageID) {
+  try {
+    console.log('Deleting message with ID:', deletedMessageID);
+
+    const response = await axios.delete(`${backendUrl}/messages/deleteCH?deletedMessageID=${deletedMessageID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      params: {
+        deletedMessageID: deletedMessageID
+      }
+    })
+    console.log('API Response:', response.data);
+
+  } catch (error) {
+    console.error('API Error:', error.message);
+    throw error;
+  }
+}
+
 
 async function fetchChannelMessages(currChannelName) {
   try {
-    console.log('Fetching messages for channel:', currChannelName);
+    // console.log('Fetching messages for channel:', currChannelName);
 
     const response = await axios.get(`${backendUrl}/messages/getCHs`, {
       headers: {
@@ -91,7 +135,7 @@ async function fetchChannelMessages(currChannelName) {
 
     const messages = response.data;
 
-    console.log('Fetched messages:', messages);
+    // console.log('Fetched messages:', messages);
 
     return messages;
   } catch (error) {
@@ -100,4 +144,4 @@ async function fetchChannelMessages(currChannelName) {
   }
 }
 
-export { getUserData, sendChannelMessage, fetchChannelMessages };
+export { getUserData, getUserIdByUsername, sendChannelMessage, deleteCH, fetchChannelMessages };

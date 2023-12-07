@@ -69,21 +69,42 @@ router.post('/sendCH', authenticateToken, async (req, res) => {
     }
 });
 
+router.delete('/deleteCH', authenticateToken, async (req, res) => {
+    try {
+      const { deletedMessageID } = req.query;
+  
+      // Use Mongoose's deleteOne to delete the message by ID
+      const deletedMessage = await MessageCH.deleteOne({ _id: deletedMessageID });
+  
+      // Check if the message was found and deleted
+      if (deletedMessage.deletedCount === 1) {
+        // Message was deleted successfully
+        res.status(200).send('Message deleted successfully');
+      } else {
+        // Message was not found
+        res.status(404).send('Message not found');
+      }
+    } catch (error) {
+      console.error('Error deleting message:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
 router.get('/getCHs', authenticateToken, async (req, res) => {
     try {
-        console.log("first")
+        // console.log("first")
         const { channelName } = req.query;
         // const { channelName } = req.body;
         const currChannel = await Channel.findOne({ name: channelName});
-        console.log("currChannel")
-        console.log(currChannel);
+        // console.log("currChannel")
+        // console.log(currChannel);
         const messages = await MessageCH.find(
             { channel: currChannel._id }
         );
-        console.log("messages");
-        console.log(messages);
+        // console.log("messages");
+        // console.log(messages);
         res.json(messages);
-        console.log("bonk");
+        // console.log("bonk");
 
     } catch (error) {
         console.error('Error fetching user information:', error);
