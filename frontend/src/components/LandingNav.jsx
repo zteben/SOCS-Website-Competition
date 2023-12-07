@@ -28,7 +28,7 @@ const LandingNav = () => {
 
     return (
         <nav className="LandingNav navbar navbar-expand-lg">
-            <Link to="/home" className="d-flex align-items-center no-deco">
+            <Link to="/home" className="d-flex align-items-center no-deco offset">
                 <img
                     id="navbar-logo"
                     src="images/bird.png"

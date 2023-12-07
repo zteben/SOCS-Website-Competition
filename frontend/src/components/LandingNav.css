@@ -4,7 +4,11 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     background-color: #f8f9fa;
-    padding: 10px 7%;
+    padding: 10px 7% 0 7%;
+}
+.offset {
+
+    padding-bottom: 10px;
 }
 .brand-logo { 
     font-size: 24px;
