@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
             res.json({ accessToken: accessToken, refreshToken: refreshToken });
         }
         else {
-            res.send('Not Allowed');
+            res.status(400).send('Not Allowed');
         }
 
     } catch (error) {

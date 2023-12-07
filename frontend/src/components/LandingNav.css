@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins&display=swap');
+
+.LandingNav {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: #f8f9fa;
+    padding: 10px 7%;
+}
+.brand-logo { 
+    font-size: 24px;
+    font-weight: 600;
+    color: #c32626;
+  }
+
+.no-deco {
+    text-decoration: none;
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+}
+}
+
+.btn-login {
+    border-radius: 30px;
+    transition: color 0.3s ease; 
+    font-weight: 500; 
+    background-color: #efefef;
+    width: 90px; 
+}
+
+.btn-login:hover {
+    color: #c32626; 
+    box-shadow: 0 5px 3px rgba(207, 207, 207, 0.5);
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .LandingNav {
+        color: #ffffff;
+        background-color: rgb(37, 37, 41)
+    }
+    .brand-logo {
+        color: #ffffff;
+    }
+    
+    .btn-login:hover {
+        box-shadow: 0 5px 3px rgba(0, 0, 0, 0.5);
+    }
+
+}

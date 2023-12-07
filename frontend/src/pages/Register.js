@@ -1,10 +1,11 @@
 import React from 'react';
+import LandingNav from '../components/LandingNav';
+import CreateAcc from '../components/CreateAcc';
 
 const Register = () => {
   return (
     <div>
-      <h1>Register Page</h1>
-      {/* Your home page content */}
+      <CreateAcc/>
     </div>
   );
 }

@@ -1,13 +1,11 @@
 import React from 'react';
-import Clicker from '../components/Clicker';
+import LandingNav from '../components/LandingNav';
+import Signin from '../components/Signin';
 
 const Login = () => {
   return (
     <div>
-      <h1>Login Page</h1>
-      {/* Your home page content */}
-      <Clicker/>
-
+      <Signin/>
     </div>
   );
 }

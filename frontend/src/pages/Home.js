@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LandingNav from '../components/LandingNav';
+import LandingHome from '../components/LandingHome';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <Link to="/login"><button>Login</button></Link>
-      
+    <div className="Home">
+        <LandingNav/>
+        <LandingHome/>
     </div>
   );
-}
-
+  };
 export default Home;

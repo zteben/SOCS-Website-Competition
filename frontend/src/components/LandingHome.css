@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins&display=swap');
+
+.LandingHome {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: #efefef;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.lg-text {
+    color: #c32626;
+    font-weight: 600;
+    font-size: 35px;
+    text-align: center;
+}
+
+.md-text {
+    text-align: justify;
+    max-width:405px;
+    margin: 0 auto;
+}
+
+.red-link {
+    color: #c32626;
+}
+
+.red-link:hover {
+    color: #c32626;
+  }
+
+.column1{
+    margin-top: 5%;
+    padding: 20px;
+
+}
+.column2{
+    margin-top: 15%;
+    padding: 20px 50px 20px 0px;
+
+}
+
+@media (prefers-color-scheme: dark) {
+    .LandingHome {
+        color: #ffffff;
+        background-color: #1e1e21;
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .LandingHome {
+        grid-template-columns: 1fr;
+    }
+  
+    .column1 {
+        display: none; 
+    }
+    .column2 {
+        padding: 20px
+    }
+  }

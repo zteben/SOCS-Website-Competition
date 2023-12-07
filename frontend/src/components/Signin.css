@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins&display=swap');
+
+
+.Signin {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-image: url("../../public/images/red.png");
+    background-size: cover;
+    background-repeat: 'no-repeat';
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-box {
+    background-color: #f8f9fa;
+    width: 500px;
+    padding: 70px;
+    border: 1px solid #ccc;
+
+}
+
+.error {
+    border-color: red;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: rgb(231, 236, 248);
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
