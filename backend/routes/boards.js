@@ -32,7 +32,7 @@ router.get('/getBoard', authenticateToken, async (req, res) => {
   }
 });
 
-//get boards (mike)
+//get boards
 router.get('/getAllBoards', authenticateToken, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.user.username });

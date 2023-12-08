@@ -2,6 +2,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 30%;
+  min-width: 160px;
   text-align: center;
   margin: 10px; /* Add margin for spacing between cards */
   display: inline-block; /* Make it inline-block to avoid full width */
@@ -17,4 +18,14 @@
   padding: 18px 18px;
 }
 
+.delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background-image: url('path/to/your/image.jpg');
+  background-size: cover; /* Adjust according to your image size preference */
+  width: 30px; /* Adjust width and height according to your image dimensions */
+  height: 30px;
+}
 /* Remove discussion-board styles */

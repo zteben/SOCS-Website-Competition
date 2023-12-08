@@ -1,4 +1,5 @@
 // DiscussionBoard.jsx
+// TODO: FIX HARDCODED BEARER
 import React, { useState, useEffect } from 'react';
 import './DiscussionBoard.css';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ const DiscussionBoard = ({ boardName }) => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE4ODY0MDUsImV4cCI6MTcwMTk3MjgwNX0.DB0RrRd_dTIqQbQU5Z6RaOx201CL6SHSL4yd3FwOK0s`, // Replace with your actual access token
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE5OTUwMzQsImV4cCI6MTcwMjA4MTQzNH0.AhxPOkUokdFS4Ilz0OkM55pKI5Zg2cme-SJFBba-FCo`, // Replace with your actual access token
             },
           }
         );
