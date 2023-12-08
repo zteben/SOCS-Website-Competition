@@ -7,10 +7,8 @@ import { Link } from 'react-router-dom';
 import DiscussionBoard from '../components/DiscussionBoard';
 import DirectMessageSidebar from '../components/DirectMessageSidebar';
 import AddBoardForm from '../components/AddBoardForm';
-import LandingNav from '../components/LandingNav';
+// import LandingNav from '../components/LandingNav';
 import SelectNav from '../components/SelectNav';
-
-// import SelectNav from '../components/SelectNav';
 
 const Select = () => {
   const [boards, setBoards] = useState([]);
@@ -25,7 +23,7 @@ const Select = () => {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE5OTUwMzQsImV4cCI6MTcwMjA4MTQzNH0.AhxPOkUokdFS4Ilz0OkM55pKI5Zg2cme-SJFBba-FCo`, // Replace with your actual access token
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIwNTE5NDEsImV4cCI6MTcwMjEzODM0MX0.51V7Bvk-xnKZ9i-HbdlDI7rmq_NsGKqLW4U2_gD-At4`, // Replace with your actual access token
           },
         }
       );
@@ -84,6 +82,7 @@ const Select = () => {
         <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
             <Link key={board._id} to={`/boards/${board.name}`}>
+              {/* Wrap the entire DiscussionBoard in the Link */}
               <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}

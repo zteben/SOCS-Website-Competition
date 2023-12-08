@@ -33,6 +33,28 @@ const SelectNav = () => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      const accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIwNTE5NDEsImV4cCI6MTcwMjEzODM0MX0.51V7Bvk-xnKZ9i-HbdlDI7rmq_NsGKqLW4U2_gD-At4';
+      const response = await fetch('http://localhost:3000/auth/logout', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (response.status === 204) {
+        console.log('Logout successful');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   return (
     <nav className="LandingNav navbar navbar-expand-lg">
       <Link to="/select" className="d-flex align-items-center no-deco offset">
@@ -47,7 +69,9 @@ const SelectNav = () => {
       </Link>
 
       <Link to="/" className="ml-auto">
-        <button className="btn btn-login">Logout</button>
+        <button className="btn btn-login" onClick={handleLogout}>
+          Logout
+        </button>
       </Link>
     </nav>
   );

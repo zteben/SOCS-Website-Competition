@@ -4,6 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Token = require('../models/Token');
+const authenticate = require('../middleware/authenticateToken');
 
 // Register user
 router.post('/register', async (req, res) => {
@@ -67,9 +68,20 @@ router.post('/token', async (req, res) => {
 });
 
 // Logout user
-router.delete('/logout', async (req, res) => {
+// router.delete('/logout', async (req, res) => {
+//   try {
+//     await Token.deleteMany({ token: req.body.token });
+//     res.sendStatus(204);
+//   } catch (error) {
+//     console.error('Error removing token:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+router.delete('/logout', authenticate, async (req, res) => {
   try {
-    await Token.deleteMany({ token: req.body.token });
+    // Delete the refresh token from the database
+    await Token.deleteMany({ token: req.header('Authorization') });
+
     res.sendStatus(204);
   } catch (error) {
     console.error('Error removing token:', error);
