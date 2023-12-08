@@ -1,10 +1,8 @@
-// DiscussionBoard.jsx
-// TODO: FIX HARDCODED BEARER
 import React, { useState, useEffect } from 'react';
 import './DiscussionBoard.css';
 import { Link } from 'react-router-dom';
 
-const DiscussionBoard = ({ boardName }) => {
+const DiscussionBoard = ({ boardName, isDarkMode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -36,14 +34,14 @@ const DiscussionBoard = ({ boardName }) => {
   }, [boardName]);
 
   const handleDeleteClick = async (event) => {
-    event.preventDefault(); // Prevents the default behavior (e.g., link navigation)
+    event.preventDefault();
 
     try {
       const response = await fetch('http://localhost:3000/boards/deleteBoard', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE4ODY0MDUsImV4cCI6MTcwMTk3MjgwNX0.DB0RrRd_dTIqQbQU5Z6RaOx201CL6SHSL4yd3FwOK0s`, // Replace with your actual access token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE5OTUwMzQsImV4cCI6MTcwMjA4MTQzNH0.AhxPOkUokdFS4Ilz0OkM55pKI5Zg2cme-SJFBba-FCo`, // Replace with your actual access token
         },
         body: JSON.stringify({
           boardname: boardName,
@@ -51,7 +49,6 @@ const DiscussionBoard = ({ boardName }) => {
       });
 
       if (response.status === 200) {
-        // Reload the page or update the state to reflect the changes
         window.location.reload();
       } else {
         console.error('Failed to delete board');
@@ -61,19 +58,18 @@ const DiscussionBoard = ({ boardName }) => {
     }
   };
 
+  const containerStyle = {
+    backgroundColor: isDarkMode ? 'rgb(37, 37, 41)' : '#f8f9fa',
+    color: isDarkMode ? 'white' : 'black',
+  };
+
   return (
-    <div className="card">
+    <div className="card" style={containerStyle}>
       <div className="container">
-        <h4>
-          <b>{boardName}</b>
-        </h4>
+        <h4>{boardName}</h4>
       </div>
       {isAdmin && (
-        <div className="delete-icon" onClick={handleDeleteClick}>
-          <span role="img" aria-label="Delete">
-            ❌
-          </span>
-        </div>
+        <div className="delete-icon" onClick={handleDeleteClick}></div>
       )}
     </div>
   );

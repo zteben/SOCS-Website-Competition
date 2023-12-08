@@ -1,37 +1,71 @@
-// select.js
-// TODO: FIX HARDCODED BEARER
+// TODO: ACTUALLY LOG USER OUT WHEN USER CLICKS ON LOG OUT (IN SELECTNAV.JSX)
+// TODO: REDIRECT TO BOARD.JS WHEN USER CLICKS ON A BOARD - isa or mike
+// TODO: SEND FRIEND REQ BY SEARCHING BY NAME, ACCEPT FRIEND REQUEST FRONTEND - mike
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DiscussionBoard from '../components/DiscussionBoard'; // Adjust the path based on your project structure
+import DiscussionBoard from '../components/DiscussionBoard';
 import DirectMessageSidebar from '../components/DirectMessageSidebar';
-<style></style>;
+import AddBoardForm from '../components/AddBoardForm';
+import LandingNav from '../components/LandingNav';
+import SelectNav from '../components/SelectNav';
+
+// import SelectNav from '../components/SelectNav';
+
 const Select = () => {
-  // Assume you have a state to store the list of boards
   const [boards, setBoards] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
 
-  // Fetch the list of boards when the component mounts
+  const fetchBoards = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:3000/boards/getAllBoardNames',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE5OTUwMzQsImV4cCI6MTcwMjA4MTQzNH0.AhxPOkUokdFS4Ilz0OkM55pKI5Zg2cme-SJFBba-FCo`, // Replace with your actual access token
+          },
+        }
+      );
+
+      const data = await response.json();
+      setBoards(data);
+    } catch (error) {
+      console.error('Error fetching boards:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:3000/boards/getAllBoardNames',
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDE5OTUwMzQsImV4cCI6MTcwMjA4MTQzNH0.AhxPOkUokdFS4Ilz0OkM55pKI5Zg2cme-SJFBba-FCo`, // Replace with your actual access token
-            },
-          }
-        );
+    fetchBoards();
+  }, []);
 
-        const data = await response.json();
-        setBoards(data);
-      } catch (error) {
-        console.error('Error fetching boards:', error);
-      }
+  const handleBoardAdded = (newBoardName) => {
+    fetchBoards();
+  };
+
+  const containerStyle = {
+    marginLeft: '15rem',
+    minHeight: '100vh',
+    backgroundColor: isDarkMode ? 'rgb(30,30,33)' : '#efefef',
+  };
+
+  const headerStyle = {
+    color: isDarkMode ? 'white' : '#c32626',
+  };
+
+  useEffect(() => {
+    const updateDarkMode = (event) => {
+      setIsDarkMode(event.matches);
     };
 
-    fetchBoards();
+    const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    darkModeMatcher.addListener(updateDarkMode);
+
+    return () => {
+      darkModeMatcher.removeListener(updateDarkMode);
+    };
   }, []);
 
   return (
@@ -39,19 +73,18 @@ const Select = () => {
       <div>
         <DirectMessageSidebar directmessagesidebar={true} />
       </div>
-      <div
-        style={{
-          marginLeft: '15rem',
-          marginRight: '1rem',
-          paddingLeft: '5rem',
-          marginTop: '2rem',
-        }}
-      >
-        <h1>Your Discussion Boards</h1>
+      <div>
+        <SelectNav />
+        {/* <LandingNav /> */}
+      </div>
+      <div style={containerStyle}>
+        <br></br>
+        <h1 style={headerStyle}>Your Discussion Boards</h1> <br></br>
+        <AddBoardForm onBoardAdded={handleBoardAdded} />
         <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
             <Link key={board._id} to={`/boards/${board.name}`}>
-              <DiscussionBoard boardName={board.name} />
+              <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}
         </div>

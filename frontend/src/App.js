@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* pages */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
