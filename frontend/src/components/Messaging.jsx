@@ -6,7 +6,7 @@ import Message from './Message';
 import { autoResizeTextarea } from './../utils/AutoResizeTextArea';
 import { sendNewMessage } from './../utils/SendNewMessage';
 import { fetchChannelMessages } from './../api';
-import Settings from './Settings'; 
+import Search from './Search'; 
 
 
 const socket = io('mongodb://localhost:27017');
@@ -124,7 +124,7 @@ const Messaging = ({ currChannelName, currUserName }) => {
     <div style={{ backgroundColor: '#fff3ed', height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <div className="channel-name" ref={channelNameRef}>
             &nbsp;&nbsp;# {currChannelName}
-            <Settings toggleOverlay={toggleOverlay} />
+            <Search toggleOverlay={toggleOverlay} currChannelName={currChannelName} messages={messages} />
             {/* <Settings /> */}
         </div>
         
@@ -137,8 +137,9 @@ const Messaging = ({ currChannelName, currUserName }) => {
                 Feel free to send the first message to get started.
             </p>
             <div class='all-messages'>
-                {messages.map((message) => (
+                {messages.map((message, index) => (
                 <Message
+                    key={message.timestamp}
                     sender={message.sender}
                     timestamp={message.timestamp}
                     message={message.message}
@@ -177,7 +178,9 @@ const Messaging = ({ currChannelName, currUserName }) => {
                 disabled={isOverlayActive}
             />
                 
-                <button disabled={isOverlayActive} onClick={() => sendNewMessage(newMessage, currChannelName, currUserName, setMessages, setNewMessage)}>
+                <button disabled={isOverlayActive} onClick={() => {
+                  console.log("all messages: ", messages)
+                  sendNewMessage(newMessage, currChannelName, currUserName, setMessages, setNewMessage)}}>
                 <FaArrowRight /> {/* Use the arrow icon */}
                 </button>
                 {/* <button onClick={sendNewMessage}>Send</button> */}

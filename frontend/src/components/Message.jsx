@@ -19,7 +19,6 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
     setSenderObject(null);
     const fetchData = async () => {
       try {
-        // console.log('sender id:', sender);
         const userObject = await getUserData(sender);
         // console.log('Fetched userObject:', userObject);
         setSenderObject(userObject);

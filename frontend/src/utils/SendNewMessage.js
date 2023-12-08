@@ -12,21 +12,23 @@ export async function sendNewMessage(newMessage, currChannel, currUser, setMessa
 
       console.log('Received message:', { sender, receiver, message, timestamp });
 
-
       // Await the asynchronous function before updating state
-      await sendChannelMessage(sender, receiver, message, timestamp);
+      var new_Id = await sendChannelMessage(sender, receiver, message, timestamp);
 
       // Fetch user data for the sender
       // const { userId } = await getUserIdByUsername({ username: currUser });
+
+      /* THIS FUNCTION BELOW RETURNS UNDEFINED */
       const userId = await getUserIdByUsername(currUser)
-      console.log("userId", userId);
       const userObject = await getUserData(userId);
 
       const newMessageObject = {
         message: trimmedMessage,
-        username: currUser, // Replace with the actual username
+        username: sender, // Replace with the actual username
+        sender: userId,
         timestamp: Date.now(),
-        userProfilePicture: userObject.profilePic
+        userProfilePicture: userObject.profilePic,
+        _id: new_Id
       };
       
       

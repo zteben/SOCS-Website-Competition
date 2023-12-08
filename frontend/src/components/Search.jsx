@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoIosSettings } from 'react-icons/io';
+import Message from './Message'
 
-const Settings = ({ toggleOverlay }) => {
+const Search = ({ toggleOverlay, currChannelName, messages  }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+
   const handleClick = () => {
     toggleOverlay();
     // Add any other settings-related logic here
@@ -69,6 +74,13 @@ const Settings = ({ toggleOverlay }) => {
     };
   }, [isPopupOpen]);
 
+  useEffect(() => {
+    const results = messages.filter((message) =>
+      message.message.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm, messages]);
+
   return (
     <>
       <div className="settings">
@@ -80,10 +92,27 @@ const Settings = ({ toggleOverlay }) => {
       {isPopupOpen && (
         <div className="settings-popup-overlay">
           <div ref={popupRef} className="settings-popup">
-            {/* Add your settings content here */}
-            <p>Settings Popup Content</p>
+            <p>Search through #{currChannelName}</p>
+            <input
+              type="text"
+              placeholder={`Search in #${currChannelName}`}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {searchResults.map((result) => (
+            <Message
+              
+              sender={result.sender}
+              timestamp={result.timestamp}
+              message={result.message}
+              userProfilePicture={result.userProfilePicture}  // Add appropriate property
+              // currentUserName={/* Provide the current user's name */}
+              // onDelete={/* Provide the onDelete function */}
+              messageID={result._id}
+            />
+          ))}
             <button className='closePopupButton' ref={closeButtonRef} onClick={closePopup}>
-              Close Popup
+              Close Search
             </button>
           </div>
         </div>
@@ -92,4 +121,4 @@ const Settings = ({ toggleOverlay }) => {
   );
 };
 
-export default Settings;
+export default Search;

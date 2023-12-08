@@ -8,7 +8,7 @@ import { autoResizeTextarea } from './utils/AutoResizeTextArea';
 import { sendNewMessage } from './utils/SendNewMessage';
 // import { IoIosSettings } from "react-icons/io";
 import { fetchChannelMessages } from './api';
-import Settings from './components/Settings'; 
+import Search from './components/Search'; 
 
 // import { fetchMessages } from './api';
 
@@ -98,7 +98,7 @@ const [messages, setMessages] = useState([]);  // Define messages and setMessage
     <div style={{backgroundColor: '#fff3ed', height: '100vh'}}>
         <div className="channel-name" ref={channelNameRef}>
             &nbsp;&nbsp;# {channel.name}
-            <Settings toggleOverlay={toggleOverlay} />
+            <Search toggleOverlay={toggleOverlay} />
             {/* <Settings /> */}
         </div>
         

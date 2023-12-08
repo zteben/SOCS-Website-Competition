@@ -26,6 +26,8 @@ async function getUserData(userID) {
     // Assuming the response structure is like { data: { profilePic, username, ... }, status: 'success' }
     const responseData = response.data;
 
+    console.log("responseData: ", responseData)
+
     // Extracting relevant data from the response
 
     return responseData;
@@ -52,7 +54,7 @@ async function getUserIdByUsername(username) {
 
     const responseData = response.data;
 
-    return responseData.userId;
+    return responseData.user._id;
 
   } catch (error) {
     console.error('API Error:', error.message);
@@ -81,8 +83,8 @@ async function sendChannelMessage(sender, receiver, message, timestamp) {
 
     // console.log("HEWWO?")
 
-    const savedMessage = response.data;
-    console.log('Saved Message:', savedMessage);
+    const newId = response.data._id;
+    return newId
 
     // const messages = response.data;
 
