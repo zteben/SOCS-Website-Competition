@@ -66,8 +66,8 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
   const handleDelete = async () => {
     try {
       
-      // Call the deleteCH function with the message ID
-      await deleteCH(messageID);
+
+      onDelete(messageID)
 
       // Optionally, update your component state or perform other actions after successful deletion
       console.log('Message deleted successfully');
@@ -75,8 +75,6 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
       // Handle errors, such as displaying an error message to the user
       console.error('Error deleting message:', error.message);
     }
-
-    onDelete(messageID)
   };
   
 
@@ -98,7 +96,7 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
  
   const redirectToWebsite = () => {
     // Replace 'https://example.com' with the actual URL you want to redirect to
-    window.location.href = 'https://example.com';
+    window.location.href = `http://localhost:3001/dm?&friend_username=${senderObject?.username}`;
   };
 
   const isCurrentUser = senderObject?.username === currentUserName;

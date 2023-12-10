@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IoIosSettings } from 'react-icons/io';
+import { IoIosSearch } from 'react-icons/io';
 import Message from './Message'
 
 const Search = ({ toggleOverlay, currChannelName, messages  }) => {
@@ -75,10 +75,16 @@ const Search = ({ toggleOverlay, currChannelName, messages  }) => {
   }, [isPopupOpen]);
 
   useEffect(() => {
-    const results = messages.filter((message) =>
-      message.message.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
+    if (searchTerm == "") {
+      setSearchResults([]);
+    }
+    else {
+      const results = messages.filter((message) =>
+        message.message.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      console.log(results)
+      setSearchResults(results);
+    }
   }, [searchTerm, messages]);
 
   return (
@@ -86,7 +92,7 @@ const Search = ({ toggleOverlay, currChannelName, messages  }) => {
       <div className="settings">
         <button className="settingsButton" onClick={handleButtonClick}>
           {/* <IoIosSettings className="settingsButtonSVG" /> */}
-          <IoIosSettings style={{ fontSize: '1.8em' }} />
+          <IoIosSearch style={{ fontSize: '1.8em' }} />
         </button>
       </div>
       {isPopupOpen && (
@@ -98,10 +104,11 @@ const Search = ({ toggleOverlay, currChannelName, messages  }) => {
               placeholder={`Search in #${currChannelName}`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
             />
             {searchResults.map((result) => (
             <Message
-              
+              key={result.timestamp}
               sender={result.sender}
               timestamp={result.timestamp}
               message={result.message}

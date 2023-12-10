@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const backendUrl = 'http://localhost:3000'; // Replace with your actual backend URL
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNvb2xQcm9mIiwiaWF0IjoxNzAxOTI2MjY3LCJleHAiOjE3MDIwMTI2Njd9.87M-JuZ9cCKNH0wRuwRge5NdOh2PbQXA5KTepkKH7rg'; 
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNvb2xQcm9mIiwiaWF0IjoxNzAyMTg1MDYzLCJleHAiOjE3MDIyNzE0NjN9.AJLTwO69YuWJl2DyWAXN18HgpFP3CyWTeyvg_WfNbJQ'; 
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -118,6 +118,28 @@ async function deleteCH(deletedMessageID) {
   }
 }
 
+async function deleteDM(deletedMessageID) {
+  try {
+    console.log('Deleting message with ID:', deletedMessageID);
+
+    const response = await axios.delete(`${backendUrl}/messages/deleteDM?deletedMessageID=${deletedMessageID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      params: {
+        deletedMessageID: deletedMessageID
+      }
+    })
+    console.log('API Response:', response.data);
+
+  } catch (error) {
+    console.error('API Error:', error.message);
+    throw error;
+  }
+}
+
 
 async function fetchChannelMessages(currChannelName) {
   try {
@@ -146,4 +168,64 @@ async function fetchChannelMessages(currChannelName) {
   }
 }
 
-export { getUserData, getUserIdByUsername, sendChannelMessage, deleteCH, fetchChannelMessages };
+async function fetchFriendMessages(friend, username) {
+  try {
+    // console.log('Fetching messages for channel:', currChannelName);
+
+    const response = await axios.get(`${backendUrl}/messages/getDMs`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      params: {
+        username1: friend,
+        username2: username
+      }
+    });
+
+    const messages = response.data;
+
+    console.log('Response for getting DMs:', response);
+
+    return messages;
+  } catch (error) {
+    console.error('API Error:', error.message);
+    throw error;
+  }
+}
+
+async function sendDMsMessage(sender, receiver, timestamp, message) {
+  try {
+    console.log('Sending message for channel');
+
+    const postData = {
+      sender: sender,
+      receiver: receiver,
+      message: message,
+      timestamp: timestamp
+    };
+
+    const response = await axios.post(`${backendUrl}/messages/sendDM`, postData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      }
+      
+    });
+
+    // console.log("HEWWO?")
+
+    const newId = response.data._id;
+    return newId
+
+    // const messages = response.data;
+
+    // console.log('Fetched messages:', messages);
+
+  } catch (error) {
+    console.error('API Error:', error.message);
+    throw error;
+  }
+}
+
+export { getUserData, getUserIdByUsername, sendChannelMessage, deleteCH, fetchChannelMessages, fetchFriendMessages, sendDMsMessage, deleteDM };

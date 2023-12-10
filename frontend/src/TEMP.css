@@ -55,6 +55,28 @@
     margin-top: auto;
     margin-bottom: auto;
   }
+
+
+  .settings-popup::-webkit-scrollbar {
+    width: 0.2em;
+  }
+  
+  /* Track */
+  .settings-popup::-webkit-scrollbar-track {
+    background:var(--backgroundColour)
+  }
+  
+  /* Handle */
+  .settings-popup::-webkit-scrollbar-thumb {
+    background: var(--headerAndFooter);
+    border-radius: 8px;
+  }
+  
+  /* Handle on hover */
+  .settings-popup::-webkit-scrollbar-thumb:hover {
+    background: var(--headerAndFooter);
+    cursor: pointer;
+  }
   
   .settingsButton {
     color: var(--whiteText);
@@ -467,6 +489,7 @@
        max-height: 70vh; /* Set a fixed height for the popup container */
        overflow-y: auto; /* Enable vertical scrolling */
        justify-content: flex-start;
+       
     
       /* Center the popup */
       /* position: absolute;
@@ -487,6 +510,23 @@
       margin-top: 1em;
   
     }
+
+  .search-input {
+    /* border: none; */
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      background-color: var(--backgroundColour);
+      /* border-radius: 10px; */
+      overflow-wrap: break-word;
+      resize: none;
+      overflow: auto;
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      color:var(--blackText);
+      border-radius: 0.5em;
+      border-width: 0.25em;
+      border-color: var(--headerAndFooter);
+  }
     
     
   

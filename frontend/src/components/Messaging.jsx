@@ -5,7 +5,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import Message from './Message';
 import { autoResizeTextarea } from './../utils/AutoResizeTextArea';
 import { sendNewMessage } from './../utils/SendNewMessage';
-import { fetchChannelMessages } from './../api';
+import { fetchChannelMessages, deleteCH } from './../api';
 import Search from './Search'; 
 
 
@@ -98,7 +98,10 @@ const Messaging = ({ currChannelName, currUserName }) => {
 //     }
 //   }, [containerRef, messages]);
 
-  const handleDeleteMessage = (deletedMessageID) => {
+  const handleDeleteMessage = async (deletedMessageID) => {
+
+    await deleteCH(deletedMessageID);
+
     // Log the deleted message and its ID to check if it's correct
     console.log('Deleted Message:', deletedMessageID);
   

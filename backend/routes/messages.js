@@ -8,7 +8,7 @@ const authenticateToken = require('../middleware/authenticateToken');
 
 router.post('/sendDM', authenticateToken, async (req, res) => {
     try {
-        const { sender, receiver, message, timestamp } = req.body;
+        const { sender, receiver, timestamp, message } = req.body;
         const user1 = await User.findOne({ username: sender});
         const user2 = await User.findOne({ username: receiver});
 
@@ -69,12 +69,35 @@ router.post('/sendCH', authenticateToken, async (req, res) => {
     }
 });
 
+
 router.delete('/deleteCH', authenticateToken, async (req, res) => {
     try {
       const { deletedMessageID } = req.query;
   
       // Use Mongoose's deleteOne to delete the message by ID
       const deletedMessage = await MessageCH.deleteOne({ _id: deletedMessageID });
+  
+      // Check if the message was found and deleted
+      if (deletedMessage.deletedCount === 1) {
+        // Message was deleted successfully
+        res.status(200).send('Message deleted successfully');
+      } else {
+        // Message was not found
+        res.status(404).send('Message not found');
+      }
+    } catch (error) {
+      console.error('Error deleting message:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  
+  router.delete('/deleteDM', authenticateToken, async (req, res) => {
+    try {
+      const { deletedMessageID } = req.query;
+  
+      // Use Mongoose's deleteOne to delete the message by ID
+      const deletedMessage = await MessageDM.deleteOne({ _id: deletedMessageID });
   
       // Check if the message was found and deleted
       if (deletedMessage.deletedCount === 1) {

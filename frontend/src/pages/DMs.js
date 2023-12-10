@@ -22,8 +22,8 @@ const DMs = () => {
         </div>
         <div className="messagingContainerStyle">
         <MessagingDM 
-            friendUserName = {'charlie123'} // channel object
-            currUserName = {'hello'} //user object
+            friendUserNameProps = {'hello'} // channel object
+            currUserName = {'CoolProf'} //user object
         />
         </div>
       </div>
