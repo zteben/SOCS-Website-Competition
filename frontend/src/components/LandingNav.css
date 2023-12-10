@@ -5,6 +5,7 @@
     font-weight: 400;
     background-color: #f8f9fa;
     padding: 0px 7% 0 7%;
+    height: 70px;
 }
 
 .brand-logo { 
@@ -18,15 +19,16 @@
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
     }
+    margin-bottom: 10px;
 }
 
 .btn-login {
     border-radius: 30px;
-    transition: color 0.3s ease; 
+    transition: color 0.2s ease; 
     font-weight: 500; 
     background-color: #efefef;
     width: 90px;
-    margin-top: 22px;
+    margin-top: 17px;
 }
 
 .btn-login:hover {

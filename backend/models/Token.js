@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const tokenSchema = new mongoose.Schema(
-    {  token: {type: String}
+    {  
+        username: {type: String},
+        token: {type: String}
 });
       
 const Token = mongoose.model('Token', tokenSchema);

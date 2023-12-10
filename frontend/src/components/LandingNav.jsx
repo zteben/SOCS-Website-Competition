@@ -27,7 +27,7 @@ const LandingNav = () => {
     }, []);
 
     return (
-        <nav className="LandingNav navbar navbar-expand-lg">
+        <nav className="LandingNav navbar ">
             <Link to="/home" className="d-flex align-items-center no-deco">
                 <img
                     id="navbar-logo"

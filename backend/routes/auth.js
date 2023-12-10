@@ -5,21 +5,35 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Token = require('../models/Token');
 const authenticate = require('../middleware/authenticateToken');
+const authenticateToken = require('../middleware/authenticateToken');
 
 // Register user
 router.post('/register', async (req, res) => {
   try {
-    if (await User.findOne({ username: req.body.username })) {
+    // Validate username and password
+    const username = req.body.username.trim();
+    if (!username || username.length < 4) {
+      return res.status(400).send('Invalid username');
+    }
+
+    if (await User.findOne({ username: username })) {
       return res.status(400).send('Username already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const password = req.body.password;
+    if (!password || password.length < 6) {
+      return res.status(400).send('Invalid password');
+    }
+
+    // Create User document
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      username: req.body.username,
+      username: username,
       password: hashedPassword,
     });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
+
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).send('Internal Server Error');
@@ -29,20 +43,34 @@ router.post('/register', async (req, res) => {
 // Login user
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.body.username });
-    if (user == null) {
-      return res.status(400).send('Cannot find user');
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ username: username });
+     if (!user) {
+      return res.status(400).send('User cannot be found');
     }
-    if (await bcrypt.compare(req.body.password, user.password)) {
+
+    // Authenticate user & send tokens
+    if (await bcrypt.compare(password, user.password)) {
+
+      let existingToken = await Token.findOne({ username: user.username });
+
       const payload = { username: user.username };
       const accessToken = generateAccessToken(payload);
-      const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
-      const newToken = new Token({ token: refreshToken });
-      await newToken.save();
-      res.json({ accessToken: accessToken, refreshToken: refreshToken });
+
+      if (!existingToken) {
+        const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET);
+        const newToken = new Token({ username: user.username, token: refreshToken });
+        await newToken.save();
+        existingToken = newToken;
+      }
+
+      res.status(200).json({ accessToken: accessToken, refreshToken: existingToken.token });
+
     } else {
-      res.status(400).send('Not Allowed');
+      res.status(401).send('Incorrect password');
     }
+
   } catch (error) {
     console.error('Error signing in user:', error);
     res.status(500).send('Internal Server Error');
@@ -53,14 +81,17 @@ router.post('/login', async (req, res) => {
 router.post('/token', async (req, res) => {
   try {
     const refreshToken = req.body.token;
-    if (refreshToken == null) return res.sendStatus(401);
+    if (!refreshToken) return res.sendStatus(401);
     const tokenExists = await Token.findOne({ token: refreshToken });
+
     if (!tokenExists) return res.sendStatus(403);
+
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
       if (err) return res.sendStatus(403);
       const accessToken = generateAccessToken({ username: user.username });
       res.json({ accessToken: accessToken });
     });
+
   } catch (error) {
     console.error('Error refreshing token:', error);
     res.status(500).send('Internal Server Error');
@@ -68,21 +99,12 @@ router.post('/token', async (req, res) => {
 });
 
 // Logout user
-// router.delete('/logout', async (req, res) => {
-//   try {
-//     await Token.deleteMany({ token: req.body.token });
-//     res.sendStatus(204);
-//   } catch (error) {
-//     console.error('Error removing token:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-router.delete('/logout', authenticate, async (req, res) => {
+router.delete('/logout', authenticateToken, async (req, res) => {
   try {
     // Delete the refresh token from the database
-    await Token.deleteMany({ token: req.header('Authorization') });
-
+    await Token.deleteMany({ username: req.user.username});
     res.sendStatus(204);
+
   } catch (error) {
     console.error('Error removing token:', error);
     res.status(500).send('Internal Server Error');
@@ -91,7 +113,7 @@ router.delete('/logout', authenticate, async (req, res) => {
 
 function generateAccessToken(payload) {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '24h',
+    expiresIn: '1h',
   });
 }
 
