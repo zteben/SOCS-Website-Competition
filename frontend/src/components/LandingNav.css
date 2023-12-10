@@ -4,12 +4,9 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     background-color: #f8f9fa;
-    padding: 10px 7% 0 7%;
+    padding: 0px 7% 0 7%;
 }
-.offset {
 
-    padding-bottom: 10px;
-}
 .brand-logo { 
     font-size: 24px;
     font-weight: 600;
@@ -20,7 +17,7 @@
     text-decoration: none;
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
-}
+    }
 }
 
 .btn-login {
@@ -28,7 +25,8 @@
     transition: color 0.3s ease; 
     font-weight: 500; 
     background-color: #efefef;
-    width: 90px; 
+    width: 90px;
+    margin-top: 22px;
 }
 
 .btn-login:hover {
@@ -40,14 +38,14 @@
 @media (prefers-color-scheme: dark) {
     .LandingNav {
         color: #ffffff;
-        background-color: rgb(37, 37, 41)
+        background-color: #252529
     }
     .brand-logo {
         color: #ffffff;
     }
     
     .btn-login:hover {
-        box-shadow: 0 5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 5px 3px #00000080;
     }
 
 }

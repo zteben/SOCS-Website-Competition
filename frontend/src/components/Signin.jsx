@@ -77,27 +77,6 @@ const Signin = () => {
                 <Link to="/register">Create Account</Link>
                 </div>
             </div>
-
-                {/* 
-
-
-                <form name="LoginForm" action="#" method="get" autocomplete="on">
-
-                    
-                    <h1 style="margin-top: 10px; margin-bottom: 20px;">Lemonz</h1>
-                    <div class="form-group">
-                        <label for="email" id="email_label">Email Address</label>
-                        <input type="text" id="email" name="email" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" id="password_label">Password</label>
-                        <input type="password" id="password" name="password" class="form-control">
-                    </div>
-                    <span class="centered-links"><a href="#">Forgot Password?<br><br></a></span>
-
-                    <button type="submit" class="btn btn-light">Login</button>
-                </form> */}
         </div>
     );
 };
