@@ -41,6 +41,28 @@
 
 }
 
+.slide-container {
+    overflow: hidden;
+    height: 50px; /* Adjust the height based on your needs */
+  }
+  
+.slide-title {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: slideIn 1s ease-in-out forwards;
+}
+  
+@keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .LandingHome {
         color: #ffffff;

@@ -10,7 +10,9 @@ const LandingHome = () => {
                 <img src="images/chat4.png" className="chat-img" alt=""/>
             </div>
             <div className="column2">
-                <div className="lg-text">Welcome to McComms!</div>
+                <div className="slide-containter">
+                    <div className="lg-text slide-title">Welcome to McComms!</div>
+                </div>
                 <p className="md-text">
                     On the official McGill communication platform, you have the opportunity to connect with your peers
                     and instructors. Participate in club activities, organize collaborative group projects, and actively 

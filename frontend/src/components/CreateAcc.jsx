@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "./Signin.css";
 import axios from "axios";
 
@@ -7,11 +7,11 @@ const CreateAcc = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorStatus, setErrorStatus] = useState(null);
+    const [errorMessage, setError] = useState(null);
     
     const handleRegister = async () => {
         try {
-          console.log(username, password);
+            console.log(username, password);
             const response = await axios.post("http://localhost:3000/auth/register", {
               username: username,
               password: password,
@@ -19,26 +19,16 @@ const CreateAcc = () => {
 
             const { accessToken, refreshToken } = response.data;
 
-            setErrorStatus(null);
-            console.log("Register successful", username, password);
+            setError(null);
+            console.log("Registration successful");
 
             navigate('/login');
 
           } catch (error) {
             if (error.response) {
-                const status = error.response.status;
-                console.error(`Request failed with status code: ${status}`);
-                setErrorStatus(error);
+                console.error(`Request failed with status code ${error.response.status}: ${error.response.data}`);
+                setError(error.response.data);
 
-                if (status === 400) {
-                  // Handle Bad Request
-                } else if (status === 401) {
-                  // Handle Unauthorized
-                } else if (status === 404) {
-                  // Handle Not Found
-                } else {
-                  // Handle other status codes
-                }
               } else if (error.request) {
                 console.error("Request made but no response received");
               } else {
@@ -50,16 +40,28 @@ const CreateAcc = () => {
 
 
     return (
-        <div className="Signin">
+      <div className="Signup">
+        <div className="bird">
+          <Link to="/home">
+            <img
+                src="images/bird_white.png"
+                alt="McGill Logo"
+                width="70"
+                height="70"
+            />
+          </Link>
+        </div>
+        <div className="form">
             <div className="input-box">
-                <h3>Register</h3>
+                <h3>Create an account</h3>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
                 <input
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={errorStatus === 400 ? 'error' : ''}
+                    className={errorMessage ? 'error' : ''}
                 />
 
                 <input
@@ -67,33 +69,15 @@ const CreateAcc = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={errorStatus === 400 ? 'error' : ''}
+                    className={errorMessage ? 'error' : ''}
                 />
 
                 <button onClick={handleRegister}>Submit</button>
-
+                <div>
+                Already have an account? <Link to="/login">Log in</Link>
+                </div>
             </div>
-
-                {/* 
-
-
-                <form name="LoginForm" action="#" method="get" autocomplete="on">
-
-                    
-                    <h1 style="margin-top: 10px; margin-bottom: 20px;">Lemonz</h1>
-                    <div class="form-group">
-                        <label for="email" id="email_label">Email Address</label>
-                        <input type="text" id="email" name="email" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" id="password_label">Password</label>
-                        <input type="password" id="password" name="password" class="form-control">
-                    </div>
-                    <span class="centered-links"><a href="#">Forgot Password?<br><br></a></span>
-
-                    <button type="submit" class="btn btn-light">Login</button>
-                </form> */}
+          </div>
         </div>
     );
 };
