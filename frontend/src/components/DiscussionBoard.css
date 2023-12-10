@@ -4,8 +4,8 @@
   width: 30%;
   min-width: 160px;
   text-align: center;
-  margin: 10px; /* Add margin for spacing between cards */
-  display: inline-block; /* Make it inline-block to avoid full width */
+  margin: 10px; /* margin for spacing between cards */
+  display: inline-block;
   text-decoration: none; /* Remove default link styling */
   color: inherit; /* Inherit text color from parent */
   background-color: #f8f9fa;

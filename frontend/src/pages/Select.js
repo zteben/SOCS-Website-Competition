@@ -1,4 +1,3 @@
-// TODO: ACTUALLY LOG USER OUT WHEN USER CLICKS ON LOG OUT (IN SELECTNAV.JSX)
 // TODO: REDIRECT TO BOARD.JS WHEN USER CLICKS ON A BOARD - isa or mike
 // TODO: SEND FRIEND REQ BY SEARCHING BY NAME, ACCEPT FRIEND REQUEST FRONTEND - mike
 
@@ -23,7 +22,7 @@ const Select = () => {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIwNTE5NDEsImV4cCI6MTcwMjEzODM0MX0.51V7Bvk-xnKZ9i-HbdlDI7rmq_NsGKqLW4U2_gD-At4`, // Replace with your actual access token
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`, // Replace with your actual access token
           },
         }
       );

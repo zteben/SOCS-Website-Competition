@@ -19,7 +19,7 @@ const AddBoardForm = ({ onBoardAdded }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIwNTE5NDEsImV4cCI6MTcwMjEzODM0MX0.51V7Bvk-xnKZ9i-HbdlDI7rmq_NsGKqLW4U2_gD-At4`, // Replace with your actual access token
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`, // Replace with your actual access token
         },
         body: JSON.stringify({
           name: newBoardName,
