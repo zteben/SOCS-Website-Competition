@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
 
     const user = await User.findOne({ username: username });
      if (!user) {
-      return res.status(400).send('User cannot be found');
+      return res.status(400).send('Incorrect username or password');
     }
 
     // Authenticate user & send tokens
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
       res.status(200).json({ accessToken: accessToken, refreshToken: existingToken.token });
 
     } else {
-      res.status(401).send('Incorrect password');
+      res.status(401).send('Incorrect username or password');
     }
 
   } catch (error) {

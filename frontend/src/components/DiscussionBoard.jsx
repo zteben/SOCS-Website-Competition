@@ -8,13 +8,14 @@ const DiscussionBoard = ({ boardName, isDarkMode }) => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       try {
+        const accessToken = localStorage.getItem('accessToken');
         const response = await fetch(
           `http://localhost:3000/isAdmin/checkAdminStatus?name=${boardName}`,
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`, // Replace with your actual access token
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );
@@ -37,11 +38,12 @@ const DiscussionBoard = ({ boardName, isDarkMode }) => {
     event.preventDefault();
 
     try {
+      const accessToken = localStorage.getItem('accessToken')
       const response = await fetch('http://localhost:3000/boards/deleteBoard', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`, // Replace with your actual access token
+          Authorization: `Bearer ${accessToken}`, // Replace with your actual access token
         },
         body: JSON.stringify({
           boardname: boardName,

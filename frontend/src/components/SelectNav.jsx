@@ -33,7 +33,7 @@ const SelectNav = () => {
 
   const handleLogout = async () => {
     try {
-      const accessToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`; // Replace with your actual access token
+      const accessToken = localStorage.getItem('accessToken');
       const response = await fetch('http://localhost:3000/auth/logout', {
         method: 'DELETE',
         headers: {
@@ -43,6 +43,7 @@ const SelectNav = () => {
       });
 
       if (response.status === 204) {
+        localStorage.removeItem('accessToken');
         console.log('Logout successful');
       } else {
         console.error('Logout failed');

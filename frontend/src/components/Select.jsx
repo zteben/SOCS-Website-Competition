@@ -1,12 +1,13 @@
 // Select.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 import DiscussionBoard from './DiscussionBoard';
 import DirectMessageSidebar from './DirectMessageSidebar';
 import AddBoardForm from './AddBoardForm';
 import SelectNav from './SelectNav';
 
 const Select = () => {
+  const navigate = useNavigate();
   const [boards, setBoards] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(
     window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -14,18 +15,23 @@ const Select = () => {
 
   const fetchBoards = async () => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        navigate('/login');
+      }
       const response = await fetch(
         'http://localhost:3000/boards/getAllBoardNames',
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbHkiLCJpYXQiOjE3MDIyNDIyMTcsImV4cCI6MTcwMjMyODYxN30.HYbwZQiCVFT9c7bWaiS_xsNdd-PSjPz-ExGNiBuFzLI`, // Replace with your actual access token
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
 
       const data = await response.json();
       setBoards(data);
+
     } catch (error) {
       console.error('Error fetching boards:', error);
     }
