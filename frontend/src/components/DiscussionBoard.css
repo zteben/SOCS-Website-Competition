@@ -4,11 +4,10 @@
   width: 30%;
   min-width: 160px;
   text-align: center;
-  margin: 10px; /* margin for spacing between cards */
-  display: inline-block;
+  margin: 10px; /* Add margin for spacing between cards */
+  display: inline-block; /* Make it inline-block to avoid full width */
   text-decoration: none; /* Remove default link styling */
   color: inherit; /* Inherit text color from parent */
-  background-color: #f8f9fa;
 }
 
 .card:hover {
@@ -19,24 +18,14 @@
   padding: 18px 18px;
 }
 
-.card {
-  position: relative;
-}
-
 .delete-icon {
   position: absolute;
   top: 5px;
   right: 5px;
   cursor: pointer;
-  background-image: url('../../public/images/delete.png');
-  background-size: cover;
-  width: 15px;
-  height: 15px;
+  background-image: url('path/to/your/image.jpg');
+  background-size: cover; /* Adjust according to your image size preference */
+  width: 30px; /* Adjust width and height according to your image dimensions */
+  height: 30px;
 }
-
-/* Invert the color of delete.png when in dark mode */
-@media (prefers-color-scheme: dark) {
-  .delete-icon {
-    filter: invert(1);
-  }
-}
+/* Remove discussion-board styles */
