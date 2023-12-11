@@ -1,13 +1,10 @@
-// TODO: REDIRECT TO BOARD.JS WHEN USER CLICKS ON A BOARD - isa or mike
-// TODO: SEND FRIEND REQ BY SEARCHING BY NAME, ACCEPT FRIEND REQUEST FRONTEND - mike
-
+// Select.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DiscussionBoard from '../components/DiscussionBoard';
-import DirectMessageSidebar from '../components/DirectMessageSidebar';
-import AddBoardForm from '../components/AddBoardForm';
-// import LandingNav from '../components/LandingNav';
-import SelectNav from '../components/SelectNav';
+import DiscussionBoard from './DiscussionBoard';
+import DirectMessageSidebar from './DirectMessageSidebar';
+import AddBoardForm from './AddBoardForm';
+import SelectNav from './SelectNav';
 
 const Select = () => {
   const [boards, setBoards] = useState([]);
@@ -72,7 +69,6 @@ const Select = () => {
       </div>
       <div>
         <SelectNav />
-        {/* <LandingNav /> */}
       </div>
       <div style={containerStyle}>
         <br></br>
@@ -81,7 +77,6 @@ const Select = () => {
         <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
             <Link key={board._id} to={`/boards/${board.name}`}>
-              {/* Wrap the entire DiscussionBoard in the Link */}
               <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}

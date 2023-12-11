@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Select from './pages/Select';
+import SelectPage from './pages/SelectPage';
 import Sidetest from './pages/Sidetest';
 
 function App() {
@@ -12,11 +12,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />}/>
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/select" element={<Select />} />
+          <Route path="/select" element={<SelectPage />} />
           <Route path="/Sidetest" element={<Sidetest />}></Route>
         </Routes>
       </BrowserRouter>
