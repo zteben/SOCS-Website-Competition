@@ -12,12 +12,11 @@ const CreateAcc = () => {
     const handleRegister = async () => {
         try {
             console.log(username, password);
+            // eslint-disable-next-line 
             const response = await axios.post("http://localhost:3000/auth/register", {
               username: username,
               password: password,
             });
-
-            const { accessToken, refreshToken } = response.data;
 
             setError(null);
             console.log("Registration successful");
