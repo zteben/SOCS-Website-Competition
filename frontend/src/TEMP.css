@@ -513,6 +513,7 @@
 
   .search-input {
     /* border: none; */
+      min-height: 20px;
       margin-top: 0.5em;
       margin-bottom: 0.5em;
       background-color: var(--backgroundColour);

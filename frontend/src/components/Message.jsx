@@ -106,6 +106,7 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
     <div className="display-message">
       {/* {isVisible} */}
       <div className="pfpContainer">
+        {(senderObject != null) ? 
         <Tooltip
           html={(
             <div className="tooltip-content">
@@ -128,9 +129,13 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
             style={{ height: '2em', width: '2em', borderRadius: '50%', marginRight: '1em', objectFit: 'cover', cursor: 'pointer' }}
           />
         </Tooltip>
+        :
+        <div></div>
+        }
       </div>
       <div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {(senderObject != null) ? 
         <Tooltip
           html={(
             <div className="tooltip-content">
@@ -150,6 +155,9 @@ const Message = ({ sender, timestamp, message, userProfilePicture, currentUserNa
           
           <p className='user'>{senderObject?.username}</p>
         </Tooltip>
+        :
+        <div></div>
+        }
           <p>&nbsp;</p>
           <p className='time'>{formatUnixTimestamp(timestamp)}</p>
         </div>

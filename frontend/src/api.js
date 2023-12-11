@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const backendUrl = 'http://localhost:3000'; // Replace with your actual backend URL
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNvb2xQcm9mIiwiaWF0IjoxNzAyMTg1MDYzLCJleHAiOjE3MDIyNzE0NjN9.AJLTwO69YuWJl2DyWAXN18HgpFP3CyWTeyvg_WfNbJQ'; 
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNvb2xQcm9mIiwiaWF0IjoxNzAyMzA4NzA4LCJleHAiOjE3MDIzOTUxMDh9.fPM-36FD-6so_VUD8fh_uMBozbLaEsJYRua5T4Y0c3Y'; 
 
 async function handleResponse(response) {
   if (!response.ok) {
