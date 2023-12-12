@@ -19,7 +19,7 @@ const LandingHome = () => {
                     engage in class discussions. Join us in fostering a rich and interactive academic experience!
                 </p>
                 <br></br>
-                Please <Link to="/login" className="red-link">login</Link> or <Link to="/register" className="red-link">register</Link> to get started.
+                <div className="bot-text">Please <Link to="/login" className="red-link">login</Link> or <Link to="/register" className="red-link">register</Link> to get started.</div>
             </div>
         </div>
     );
