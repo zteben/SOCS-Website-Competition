@@ -1,33 +1,85 @@
 // TODO: REDIRECT TO THE APPROPRIATE MESSAGE.JS WHEN USER CLICKS ON A DM - isa or mike
+import React, { useEffect, useState } from 'react';
+import "./ServerSidebar.css";
+import { Link } from 'react-router-dom';
+import FriendRequest from './FriendRequest';
 
-import React from 'react';
-import { directMessageSidebarData } from './DirectMessageSidebarData';
-import './DirectMessageSidebar.css';
-const Mysidebar = {
-  height: '100vh',
-  width: '17rem',
-  overflowX: 'hidden',
-  overflowY: 'scroll',
-};
-export default function directMessageSidebar({ directmessagesidebar }) {
+
+const DirectMessageSidebar = () => {
+  const [friends, setfriends] = useState([]);
+
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        console.log(accessToken);
+        const response = await fetch(
+          `http://localhost:3000/friends/getfriends`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+
+        const data = await response.json();
+        
+        console.log('Fetched channels:', data);
+        setfriends(data);
+        
+      } catch (error) {
+        console.error('Error fetching channels:', error);
+      }
+    };
+    fetchChannels();
+    
+  }, []);
+
+
   return (
-    <>
-      <nav className={directmessagesidebar ? 'nav-menu active' : 'nav-menu'}>
+    
+    <> 
+      
+      <nav className="nav-menu">
         <div className="nav-title">
-          <p>DIRECT MESSAGES</p>
+         
+          <p>FRIENDS</p> <FriendRequest /> 
+
+       
+     
         </div>
-        <ul className="nav-menu-items">
-          <div style={Mysidebar}>
-            {directMessageSidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.class}>
-                  <span>{item.title}</span>
-                </li>
-              );
-            })}
-          </div>
-        </ul>
+       
+          <ul className="nav-menu-items">
+            
+            {
+              friends.map((friend,index) => {
+              return(
+                <Link key={friend._id} to={`/${friend._id}`}>
+                
+                  <li key={index} className="nav-text">
+                    <span>{friend.username}</span>
+                  </li>
+            
+                </Link>
+
+                );
+                  
+              })
+            }
+
+          </ul>
+ 
       </nav>
     </>
   );
-}
+};
+
+export default DirectMessageSidebar;

@@ -1,0 +1,44 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+  width: 30%;
+  min-width: 160px;
+  text-align: center;
+
+  display: inline-block;
+  text-decoration: none; /* Remove default link styling */
+  color: inherit; /* Inherit text color from parent */
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background: #e73c3c;
+  color: white;
+  transition: 150ms;
+}
+
+.container {
+  padding: 18px 18px;
+}
+
+
+
+.delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background-image: url('../../public/images/delete.png');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+}
+
+/* Invert the color of delete.png when in dark mode */
+@media (prefers-color-scheme: dark) {
+  .delete-icon {
+    filter: invert(1);
+  }
+}
