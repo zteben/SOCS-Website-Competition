@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './LandingNav.css';
-import NotificationButton from './NotificationButton';
 
 const SelectNav = () => {
   useEffect(() => {
@@ -66,7 +65,7 @@ const SelectNav = () => {
         />
         <div className="navbar-brand brand-logo">McComms</div>
       </Link>
-      <NotificationButton/>
+
       <Link to="/" className="ml-auto">
         <button className="btn btn-login" onClick={handleLogout}>
           Logout

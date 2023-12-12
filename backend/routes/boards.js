@@ -31,6 +31,23 @@ router.get('/getBoard', authenticateToken, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+router.get('/getBoard/:boardname', authenticateToken, async (req, res) => {
+  try{
+    const { boardname } = req.params;
+    console.log(boardname);
+    const board = await Board.findOne({ name: boardname });
+    if (!board) {
+      return res.status(404).json({ error: 'Board not found' });
+    }
+    res.json(board);
+  }
+  catch (error) {
+    console.error('Error fetching board data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+
+
+});
 
 //get boards
 router.get('/getAllBoards', authenticateToken, async (req, res) => {
@@ -122,7 +139,7 @@ router.delete('/deleteBoard', authenticateToken, async (req, res) => {
 
     // Also delete related board members
     await BoardMember.deleteMany({ board: board._id });
-
+    await BoardChannel.deleteMany({ board: board._id });
     res.status(200).send('Board deleted successfully.');
   } catch (error) {
     console.error('Error fetching user information:', error);

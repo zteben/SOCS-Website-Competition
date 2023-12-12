@@ -7,6 +7,7 @@ html {
   
   .entirePage {
     width: 100vw;
+    overflow: hidden;
   }
   .board {
     position: fixed;
@@ -17,7 +18,8 @@ html {
     color: #fff3ed; /* Adjust as needed */
     /* padding: 10px; */
     text-align: center;
-    z-index: 1000; /* Ensure the header is above other elements */
+    z-index: 0; /* Ensure the header is above other elements */
+    overflow:hidden;
   }
   
   .content {
@@ -27,11 +29,12 @@ html {
   }
   
   .sidebar {
-    width: 15%; /* Adjust the width as needed */
-    background-color: #6495ed; /* Adjust as needed */
-    margin-top: 1em;
+    width: 20%; /* Adjust the width as needed */
+    
+    
     left: 0;
-    color: white;
+    background-color: #0d6bb8;
+    z-index: 1000;
     /* margin-right: 2em; */
   }
   
@@ -39,9 +42,10 @@ html {
   .messagingContainerStyle {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
     flex: 1;
     /* flex:3; */
     right: 0;
     /* margin-top: 5%; */
+    overflow: hidden;
   }

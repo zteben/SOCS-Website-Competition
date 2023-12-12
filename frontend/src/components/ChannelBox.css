@@ -1,8 +1,8 @@
-.card {
+.shape {
   box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2);
   transition: 0.3s;
-  width: 30%;
-  min-width: 160px;
+  
+  width: 100%;
   text-align: center;
 
   display: inline-block;
@@ -12,14 +12,14 @@
   position: relative;
 }
 
-.card:hover {
+.shape:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   background: #e73c3c;
   color: white;
   transition: 150ms;
 }
 
-.container {
+.square {
   padding: 18px 18px;
 }
 

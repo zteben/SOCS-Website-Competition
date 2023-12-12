@@ -4,20 +4,55 @@ import ChannelBox from './ChannelBox';
 import { Link } from 'react-router-dom';
 import NewChannel from './NewChannel';
 
-const ServerSidebar = ({ boardid }) => {
+
+const ServerSidebar = (boardname) => {
+  const [boardid, setBoardid] = useState('');
   const [channels, setChannels] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const board_id = boardid;
-  const token = localStorage.getItem('accessToken');
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+ 
   
+  const token = localStorage.getItem('accessToken');
   useEffect(() => {
+    const fetchBoardId = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+       
+        const response = await fetch(
+          `http://localhost:3000/boards/getBoard/${boardname.boardname}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        setBoardid(data);
+        
+      } catch (error) {
+        console.error('Error fetching channels:', error);
+      }
+    };
+    fetchBoardId();
+    
+  }, [boardname.boardname, token]);
+
+
+
+  useEffect(() => {
+    if (boardid._id) {
     const fetchChannels = async () => {
       try {
-        console.log(board_id);
-        console.log(token);
+        
         const response = await fetch(
-          `http://localhost:3000/channels/getAllChannel/${board_id}`,
+          `http://localhost:3000/channels/getAllChannel/${boardid._id}`,
           {
             method: 'GET',
             headers: {
@@ -35,21 +70,35 @@ const ServerSidebar = ({ boardid }) => {
         const data = await response.json();
 
         setChannels(data);
-        console.log('Fetched channels:', data);
+      
+        
       } catch (error) {
         console.error('Error fetching channels:', error);
       }
+      
     };
     fetchChannels();
-    
-  }, [board_id, token]);
-  
+  }
+  }, [boardid._id, token]);
+
+  useEffect(() => {
+    const updateDarkMode = (event) => {
+      setIsDarkMode(event.matches);
+    };
+
+    const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    darkModeMatcher.addListener(updateDarkMode);
+
+    return () => {
+      darkModeMatcher.removeListener(updateDarkMode);
+    };
+  }, []);
 
   // useEffect(() => {
   //   const checkAdminStatus = async () => {
   //     try {
   //       const response = await fetch(
-  //         `http://localhost:3000/isAdmin/checkAdminStatusById?_id=${board_id}`,
+  //         `http://localhost:3000/isAdmin/checkAdminStatusById?_id=${boardid._id}`,
   //         {
   //           method: 'POST',
   //           headers: {
@@ -81,17 +130,19 @@ const ServerSidebar = ({ boardid }) => {
       <div className="scroller">
         <div className="nav-menu">
           <div className="nav-title">
-            <p>CHANNELS</p>
-            <NewChannel boardid={board_id} />
+            <div><p><b>{boardname.boardname}</b></p> </div>
             
       
           </div>
-          <ul className="nav-menu-items">
-            
+          <ul className="channels">
+            <div >
+            <NewChannel boardid={boardid._id} />
+            </div>
+            <p><b>Channels:</b></p>
             {
               channels.map((channel,index) => (
-              
-                <Link key={channel.channel} to={`/${board_id}/${channel.channel}`}>
+                
+                <Link key={channel.channel} to={`/${boardname}/${channel.channel}`}>
                   <ChannelBox ChannelId={channel.channel} isAdmin={isAdmin} />
                 </Link>
                 

@@ -6,14 +6,7 @@ const NewChannel = ({boardid}) => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [enteredName, setEnteredName] = useState('');
 
-  const togglePopup = () => {
-    setPopupVisible(!isPopupVisible);
-  };
 
-  const closePopup = () => {
-    setPopupVisible(false);
-
-  };
 
   const handleNameChange = (event) => {
     setEnteredName(event.target.value);
@@ -27,18 +20,14 @@ const NewChannel = ({boardid}) => {
     const accessToken = localStorage.getItem('accessToken');
     try {
         
-          
-        console.log(requestData);
-  
-       
+      
         const response = await axios.post(`http://localhost:3000/channels/createChannel`, requestData, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
           })
         
-            const data =  response.json();
-            console.log('Query response:', data);
+            
             window.location.reload();
     
            
@@ -49,19 +38,15 @@ const NewChannel = ({boardid}) => {
 
   return (
     <div>
-      <button onClick={togglePopup} className='buttons'>
-        {isPopupVisible ? '-' : '+'}
-      </button>
-
-      {isPopupVisible && (
+    
         <div className="popup">
           <label>
-          Channel Name:
-            <input type="text" value={enteredName} onChange={handleNameChange} />
+          
+            <input type="text" value={enteredName}  placeholder = "Channel Name:" onChange={handleNameChange} />
           </label>
-          <button onClick={()=>{closePopup(); addChannel();}}>Add</button>
+          <button onClick={()=>{ addChannel();}}>Add</button>
         </div>
-      )}
+      
     </div>
   );
 };

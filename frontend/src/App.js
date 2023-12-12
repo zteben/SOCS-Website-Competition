@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Navigate, Routes, useParams  } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,6 +10,7 @@ import Board from './pages/Board';
 import DMs from './pages/DMs';
 
 function App() {
+  let { boardname } = useParams();
   return (
     <div className="App">
       <BrowserRouter>
@@ -22,6 +23,8 @@ function App() {
           <Route path="/Sidetest" element={<Sidetest />}></Route>
           <Route path="/boards"  element={<Board/>} />
           <Route path="/dm" element={<DMs/>} />
+          <Route path="/:boardname" element={<Board />} />
+          
         </Routes>
       </BrowserRouter>
     </div>

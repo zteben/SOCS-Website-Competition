@@ -1,21 +1,36 @@
 // TODO: REDIRECT TO THE APPROPRIATE MESSAGE.JS WHEN USER CLICKS ON A DM - isa or mike
 import React, { useEffect, useState } from 'react';
-import "./ServerSidebar.css";
+import "./DirectMessageSidebar.css";
 import { Link } from 'react-router-dom';
 import FriendRequest from './FriendRequest';
 
 
 const DirectMessageSidebar = () => {
   const [friends, setfriends] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+  useEffect(() => {
+    const updateDarkMode = (event) => {
+      setIsDarkMode(event.matches);
+    };
+
+    const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    darkModeMatcher.addListener(updateDarkMode);
+
+    return () => {
+      darkModeMatcher.removeListener(updateDarkMode);
+    };
+  }, []);
 
 
   useEffect(() => {
-    const fetchChannels = async () => {
+    const fetchFriends = async () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
-        console.log(accessToken);
+
         const response = await fetch(
-          `http://localhost:3000/friends/getfriends`,
+          `http://localhost:3000/api/friends/getFriends`,
           {
             method: 'GET',
             headers: {
@@ -32,14 +47,14 @@ const DirectMessageSidebar = () => {
 
         const data = await response.json();
         
-        console.log('Fetched channels:', data);
+   
         setfriends(data);
-        
+
       } catch (error) {
         console.error('Error fetching channels:', error);
       }
     };
-    fetchChannels();
+    fetchFriends();
     
   }, []);
 
@@ -51,14 +66,14 @@ const DirectMessageSidebar = () => {
       <nav className="nav-menu">
         <div className="nav-title">
          
-          <p>FRIENDS</p> <FriendRequest /> 
+          <p>FRIENDS</p>
 
        
      
         </div>
        
-          <ul className="nav-menu-items">
-            
+          <ul className="friends-list">
+          <FriendRequest /> 
             {
               friends.map((friend,index) => {
               return(

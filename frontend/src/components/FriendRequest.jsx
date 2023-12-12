@@ -1,41 +1,49 @@
 import React, { useState } from 'react';
 import './FriendRequest.css';
+import axios from 'axios';
 
 const FriendRequest = () => {
-  const [isPopupVisible, setPopupVisible] = useState(false);
   const [enteredName, setEnteredName] = useState('');
-
-  const togglePopup = () => {
-    setPopupVisible(!isPopupVisible);
-  };
-
-  const closePopup = () => {
-    setPopupVisible(false);
-    // You can perform further actions with the enteredName here
-    console.log("Entered Name:", enteredName);
-  };
 
   const handleNameChange = (event) => {
     setEnteredName(event.target.value);
   };
 
-  return (
-    <div>
-      <button onClick={togglePopup} className='buttons'>
-        {isPopupVisible ? '-' : '+'}
-      </button>
+  async function addFriend() {
+    const requestData = {
+      friendUsername: enteredName, 
+       
+      };
+    const accessToken = localStorage.getItem('accessToken');
+    try {
+        
+      
+        const response = await axios.post(`http://localhost:3000/api/friends/send-friend-request`, requestData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+          })
+        
+            
+            window.location.reload();
+    
+           
+    } catch (error) {
+      console.error('Error calling query:', error.message);
+    }
+  };
 
-      {isPopupVisible && (
+  return (
         <div className="popup">
           <label>
-          Username:
-            <input type="text" value={enteredName} onChange={handleNameChange} />
+          
+            <input type="text" value={enteredName} placeholder = "Username:" onChange={handleNameChange} />
           </label>
-          <button onClick={closePopup}>Send</button>
+          <button onClick={()=>{ addFriend();}}>Send</button>
         </div>
-      )}
-    </div>
-  );
+      )
+  
+  
 };
 
 export default FriendRequest;

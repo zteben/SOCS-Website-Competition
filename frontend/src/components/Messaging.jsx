@@ -133,13 +133,13 @@ const Messaging = ({ currChannelName, currUserName }) => {
         
         {/* <div class="scroll"> */}
         <div id="container" ref={containerRef} style={{ flex: 1, overflowY: 'auto' }}>
-            <p class="welcome">
+            <p className="welcome">
                 Welcome to {currChannelName}!
             </p>
-            <p class="welcome-sub">
+            <p className="welcome-sub">
                 Feel free to send the first message to get started.
             </p>
-            <div class='all-messages'>
+            <div className='all-messages'>
                 {messages.map((message, index) => (
                 <Message
                     key={message.timestamp}
@@ -155,8 +155,8 @@ const Messaging = ({ currChannelName, currUserName }) => {
             </div>
             
         </div>
-        <div class="message-form" ref={footerRef} disabled={isOverlayActive}>
-            <div class="message-div" style={{borderRadius: "5em", backgroundColor: isOverlayActive ? 'black' : '#fff3ed', opacity: isOverlayActive ? 0.3: 1, cursor: isOverlayActive ? 'not-allowed': 'auto'}} disabled={isOverlayActive}>
+        <div className="message-form" ref={footerRef} disabled={isOverlayActive}>
+            <div className="message-div" style={{borderRadius: "5em", backgroundColor: isOverlayActive ? 'black' : '#fff3ed', opacity: isOverlayActive ? 0.3: 1, cursor: isOverlayActive ? 'not-allowed': 'auto'}} disabled={isOverlayActive}>
             <textarea
                 placeholder={`Message #${currChannelName}`}
                 value={newMessage}

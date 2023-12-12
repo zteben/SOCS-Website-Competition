@@ -1,24 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Messaging from '../components/Messaging';
 // import React, { useState, useEffect, useRef } from 'react';
 
 import './../TEMP.css';
 import './../components/Board.css';
+import './../components/ServerSidebar';
+import ServerSidebar from './../components/ServerSidebar';
+import BoardNav from '../components/BoardNav';
 
 
-const board = () => {
+const Board = () => {
+  const {boardname} = useParams();
+
   return (
-    <div className="entirePage">
-      <div className="board">Board</div>
+    <div className="entirePage" >
+      <div><BoardNav/> </div>
+      
       <div className="content">
         <div className="sidebar">
-          <h2>Sidebar</h2>
-          <ul>
-            <li>General</li>
-            <li>Assignments</li>
-            <li>Midterms</li>
-          </ul>
+          <ServerSidebar boardname = {boardname}  />
         </div>
         <div className="messagingContainerStyle">
         <Messaging 
@@ -32,4 +33,4 @@ const board = () => {
   );
 }
 
-export default board;
+export default Board;

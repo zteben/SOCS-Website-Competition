@@ -10,6 +10,7 @@ const ChannelBox = ({ ChannelId,  isAdmin}) => {
     useEffect(() => {
     const fetchChannel = async () => {
         try {
+    
           const response = await fetch(
             `http://localhost:3000/channels/getChannel/${ChannelId}`,
             {
@@ -21,6 +22,7 @@ const ChannelBox = ({ ChannelId,  isAdmin}) => {
           );
           const data = await response.json();
           setData(data);
+
         } catch (error) {
           console.error('Error fetching boards:', error);
         }
@@ -32,8 +34,8 @@ const ChannelBox = ({ ChannelId,  isAdmin}) => {
 
   return (
     
-     <div className="card">
-      <div className="container">
+     <div className="shape">
+      <div className="square">
         <li className="nav-menu-text">{channel}</li>
 
       </div>

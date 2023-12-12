@@ -52,15 +52,15 @@ router.post('/accept-friend-request', authenticateToken, async (req, res) => {
   // Route to accept a friend request
   try {
     const loggedInUser = await User.findOne({ username: req.user.username });
-    const friendId = req.body.friendId; // Extract friendId from the request body
-
+    const friendUsername = req.body.friendUsername; // Extract friendId from the request body
+    const friendUser = await User.findOne({ username: friendUsername });
     // Find the pending friend request
-    const friendRequest = await Friend.findOne({
+    const friendRequest = await Friend.findOne({ 
       $and: [
         {
           $or: [
-            { $and: [{ user1: loggedInUser._id }, { user2: friendId }] },
-            { $and: [{ user1: friendId }, { user2: loggedInUser._id }] },
+            { $and: [{ user1: loggedInUser._id }, { user2: friendUser._id }] },
+            { $and: [{ user1: friendUser._id }, { user2: loggedInUser._id }] },
           ],
         },
         { status: 'pending' }, // Ensure the status is 'pending'
@@ -85,7 +85,7 @@ router.post('/accept-friend-request', authenticateToken, async (req, res) => {
 });
 
 // Route to GET user's FRIENDS
-router.get('/friends', authenticateToken, async (req, res) => {
+router.get('/getFriends', authenticateToken, async (req, res) => {
   // store user's objectID in a variable
   // with user's objectID, search for it in data of all pairs of friends (the user's objectID can either be user1 or user2) You can use the function .findMany()
   // check if the status is 'accepted'
@@ -109,7 +109,40 @@ router.get('/friends', authenticateToken, async (req, res) => {
     );
     // Find the corresponding user objects for the friendIds
     const friends = await User.find({ _id: { $in: friendIds } });
-    res.json({ friends });
+    res.json( friends );
+  } catch (error) {
+    console.error('Error fetching user friends:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+//get pending friend requests
+router.get('/getPending', authenticateToken, async (req, res) => {
+  // store user's objectID in a variable
+  // with user's objectID, search for it in data of all pairs of friends (the user's objectID can either be user1 or user2) You can use the function .findMany()
+  // check if the status is 'accepted'
+  // filter to get the objectid of the other users
+  // return (res.json)
+  try {
+    // Find the user based on the provided username in the token
+    const user = await User.findOne({ username: req.user.username });
+    // Get the user's ObjectId
+    const userId = user._id;
+    // Find all friendship records where the user is involved (as user1 or user2) and the status is 'accepted'
+    const friendships = await Friend.find({
+      $and: [
+        {  user2: userId  },
+        { status: 'pending' },
+      ],
+    });
+    // Extract the friend's ObjectId from each friendship
+    const friendIds = friendships.map((friendship) =>
+      userId.equals(friendship.user1) ? friendship.user2 : friendship.user1
+    );
+    // Find the corresponding user objects for the friendIds
+    const friends = await User.find({ _id: { $in: friendIds } });
+    res.json( friends );
   } catch (error) {
     console.error('Error fetching user friends:', error);
     res.status(500).send('Internal Server Error');

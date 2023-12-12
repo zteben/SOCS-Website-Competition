@@ -1,22 +1,16 @@
 
 .nav-menu {
-  width: 15rem;
-  position: absolute;
-  top: 6em;
-  left: 0;
-  height: calc(100vh);
+  top: 70px;
+  overflow-y: scroll;
+  overflow-x: visible;
   transition: 850ms;
+  z-index: 1000;
+  height: 90vh;
+  width: 20%; /* Adjust the width as needed */
 }
-@media screen and (max-width: 991px) {
-  .nav-menu {
-    top: 2em;
-  }
-  .nav-menu-items {
-    height: calc(100vh);
-  }
-}
+
 .nav-text {
-  padding: 8px 0px 8px 16px;
+  
   height: 60px;
 
   display: flex;
@@ -26,7 +20,7 @@
 .nav-title {
   text-decoration: none;
   color: #222020ce;
-  font-size: rem;
+  font-size: 3vw;
   padding: 0 1rem;
   font-weight: 600;
   text-align: center;
@@ -48,27 +42,30 @@
   color: white;
   transition: 150ms;
 }
-.nav-menu-items {
-  position: absolute;
-  width: 100%;
-  background-color: rgb(250, 250, 250);
+.channels {
+  position: flex;
+
+  background-color: #0d6bb8;
   list-style: none;
-  padding: 0 2em 2em 2em;
-}
-span {
-  margin-left: 16px;
-}
-ul {
-  width: 15vw;
   
 }
-.scroller {
-  margin: 0 auto;
-  height: 300px;
-  width: 15rem;
-  overflow: auto;
-}
-.scroller::-webkit-scrollbar {
-  width: 0.5em;
-}
 
+
+
+.scroller {
+
+  width: 100%; /* Adjust the width as needed */
+  background-color: #0d6bb8; /* Adjust as needed */
+  
+  left: 0;
+  color: white;
+  /* margin-right: 2em; */
+  overflow-y: scroll;
+  overflow-x:visible;
+}
+.p{
+  color: white;
+  font-size: 3em;
+  font-weight: 600;
+  margin-bottom: 1em;
+}

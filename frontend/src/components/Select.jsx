@@ -46,7 +46,7 @@ const Select = () => {
   };
 
   const containerStyle = {
-    marginLeft: '15rem',
+    marginLeft: '20%',
     minHeight: '100vh',
     backgroundColor: isDarkMode ? 'rgb(30,30,33)' : '#efefef',
   };
@@ -71,7 +71,7 @@ const Select = () => {
   return (
     <div>
       <div>
-        <DirectMessageSidebar directmessagesidebar={true} />
+        <DirectMessageSidebar  />
       </div>
       <div>
         <SelectNav />
@@ -83,8 +83,11 @@ const Select = () => {
           <AddBoardForm className="container" onBoardAdded={handleBoardAdded} />
         </div>
         <div style={{ marginTop: '2rem' }}>
-          {boards.map((board) => (
-            <Link key={board._id} to={`/boards/${board.name}`}>
+          
+          {boards.map((board,index) => (
+            
+            <Link key={index} to={`/${board.name}`}>
+              
               <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}

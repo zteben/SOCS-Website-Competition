@@ -1,18 +1,11 @@
+
 .nav-menu {
-  width: 15rem;
-  position: flex;
-  top: 6em;
-  height: calc(100vh);
+  width: 20%;
+  position: absolute;
+
+  left: 0;
+
   transition: 850ms;
-  
-}
-@media screen and (max-width: 991px) {
-  .nav-menu {
-    top: 2em;
-  }
-  .nav-menu-items {
-    height: calc(100vh);
-  }
 }
 
 .nav-text {
@@ -23,12 +16,14 @@
   align-items: center;
   cursor: pointer;
 }
-.nav-title{
+.nav-title {
   text-decoration: none;
   color: #222020ce;
   font-size: rem;
   padding: 0 1rem;
-  
+  font-weight: 600;
+  text-align: center;
+  display: flex;
 }
 
 .nav-text li {
@@ -47,22 +42,28 @@
   transition: 150ms;
 }
 .nav-menu-items {
+  position: absolute;
   width: 100%;
   background-color: rgb(250, 250, 250);
   list-style: none;
   padding: 0 2em 2em 2em;
 }
-span {
-  margin-left: 16px;
-}
+
 ul {
   width: 15vw;
-  margin-top: 2rem;
+  
 }
 .scroller {
   margin: 0 auto;
   height: 300px;
-  width: 300px;
+  width: 15rem;
   overflow: auto;
 }
-
+.scroller::-webkit-scrollbar {
+  width: 0.5em;
+}
+.friends-list{
+  width: 100%;
+  height: 100%;
+  
+}
