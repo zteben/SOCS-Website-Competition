@@ -26,9 +26,15 @@ connection.once('open', () => {
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
-//
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
+
+const messageRoutes = require('./routes/messages');
+app.use('/messages', messageRoutes);
+
+const channelRoutes = require('./routes/channels');
+app.use('/channels', channelRoutes);
+
 
 const friendsRoutes = require('./routes/friends');
 app.use('/api/friends', friendsRoutes);
