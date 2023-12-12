@@ -1,0 +1,30 @@
+.buttons{
+    appearance: none;
+    position: 'absolute'; 
+    height: 10px;
+    width: 10px;
+    float: right;
+    background-color: #ffffff;
+    color: black;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
+    padding: 0px;
+    margin-left: 50;
+    margin-right: 0;
+    margin-top: 0;
+    
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.popup{
+position: flex;
+top: '50%';
+left: '50%';
+
+z-index: 9999 ;
+padding: '20px';
+background-color: '#fff';
+box-shadow: '0 0 10px rgba(0, 0, 0, 0.3)';
+}
