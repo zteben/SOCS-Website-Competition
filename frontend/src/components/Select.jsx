@@ -71,7 +71,7 @@ const Select = () => {
   return (
     <div>
       <div>
-        <DirectMessageSidebar directmessagesidebar={true} />
+        <DirectMessageSidebar  />
       </div>
       <div>
         <SelectNav />

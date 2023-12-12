@@ -31,13 +31,16 @@ const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
 const friendsRoutes = require('./routes/friends');
-app.use('/api/friends', friendsRoutes);
+app.use('/friends', friendsRoutes);
 
 const boardRoutes = require('./routes/boards');
 app.use('/boards', boardRoutes);
 
 const isAdminRoutes = require('./routes/isAdmin');
 app.use('/isAdmin', isAdminRoutes);
+
+const channelRoutes = require('./routes/channels');
+app.use('/channels', channelRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

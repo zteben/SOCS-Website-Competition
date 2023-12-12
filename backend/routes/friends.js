@@ -85,7 +85,7 @@ router.post('/accept-friend-request', authenticateToken, async (req, res) => {
 });
 
 // Route to GET user's FRIENDS
-router.get('/friends', authenticateToken, async (req, res) => {
+router.get('/getFriends', authenticateToken, async (req, res) => {
   // store user's objectID in a variable
   // with user's objectID, search for it in data of all pairs of friends (the user's objectID can either be user1 or user2) You can use the function .findMany()
   // check if the status is 'accepted'
@@ -109,7 +109,7 @@ router.get('/friends', authenticateToken, async (req, res) => {
     );
     // Find the corresponding user objects for the friendIds
     const friends = await User.find({ _id: { $in: friendIds } });
-    res.json({ friends });
+    res.json( friends );
   } catch (error) {
     console.error('Error fetching user friends:', error);
     res.status(500).send('Internal Server Error');

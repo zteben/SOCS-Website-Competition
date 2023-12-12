@@ -1,13 +1,9 @@
 import React from 'react';
 import DirectMessageSidebar from '../components/DirectMessageSidebar';
+import ServerSidebar from '../components/ServerSidebar';
 const Sidetest = () => {
   return (
-    <div>
-        <h1>Sidetest Page</h1>
-        {/* Your home page content */}
-        <DirectMessageSidebar directmessagesidebar={true}/>
-
-    </div>
+    <ServerSidebar boardid = "6577a1e141515c85c61edebf"/>
   );
 }
 
