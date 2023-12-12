@@ -52,7 +52,7 @@ const CreateAcc = () => {
         </div>
         <div className="form">
             <div className="input-box">
-                <h3>Create an account</h3>
+                <h3 className="heading">Create an account</h3>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
                 <input
@@ -60,7 +60,7 @@ const CreateAcc = () => {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={errorMessage ? 'error' : ''}
+                    className={`write ${errorMessage ? 'error' : ''}`}
                 />
 
                 <input
@@ -68,10 +68,10 @@ const CreateAcc = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={errorMessage ? 'error' : ''}
+                    className={`write ${errorMessage ? 'error' : ''}`}
                 />
 
-                <button onClick={handleRegister}>Submit</button>
+                <button className="submit" onClick={handleRegister}>Submit</button>
                 <div>
                 Already have an account? <Link to="/login">Log in</Link>
                 </div>

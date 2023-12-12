@@ -53,7 +53,7 @@ const Signin = () => {
         </div>
         <div className="form">
           <div className="input-box">
-              <h3>Sign in</h3>
+              <h3 className="heading">Sign in</h3>
 
               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
@@ -62,7 +62,7 @@ const Signin = () => {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className={errorMessage ? 'error' : ''}
+                  className={`write ${errorMessage ? 'error' : ''}`}
               />
 
               <input
@@ -70,10 +70,10 @@ const Signin = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={errorMessage ? 'error' : ''}
+                  className={`write ${errorMessage ? 'error' : ''}`}
               />
 
-              <button onClick={handleLogin}>Submit</button>
+              <button className="submit" onClick={handleLogin}>Submit</button>
               <div>
               <Link to="/register">Create Account</Link>
               </div>
