@@ -6,6 +6,14 @@
     --whiteText: #fff3ed;
     --blackText: black;
     --timeStampColour: rgb(70, 70, 70);
+
+    /* --headerAndFooter: #6495ed;
+    --focusHaF: #4374cf;
+    --backgroundColour: #faf0e6;
+    --highlightBG: #ffe6ce;
+    --whiteText: #fff3ed;
+    --blackText: black;
+    --timeStampColour: rgb(70, 70, 70); */
   }
   
   
@@ -25,16 +33,7 @@
   body {
     flex: 1;
   }
-  
-  /* #footer {
-      position: relative;
-      bottom: 0;
-      margin-top: auto;
-      display: flex; 
-    justify-content: center;
-    align-content: center;
-      
-  } */
+
   .channel-name {
       font-family: 'Calibri', sans-serif;
       font-size: x-large;

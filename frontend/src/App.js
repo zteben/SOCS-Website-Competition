@@ -20,7 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/select" element={<SelectPage />} />
           <Route path="/Sidetest" element={<Sidetest />}></Route>
-          <Route path="/board"  element={<Board/>} />
+          <Route path="/boards"  element={<Board/>} />
           <Route path="/dm" element={<DMs/>} />
         </Routes>
       </BrowserRouter>

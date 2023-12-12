@@ -127,9 +127,7 @@ const MessagingDM = ({ friendUserNameProps, currUserName }) => {
       setMessages((messages) => [...messages, newMessageObject]);
       setNewMessage('');
     }
-
   }
-
 
 
 //   useEffect(() => {
