@@ -1,7 +1,7 @@
 
 .nav-menu {
   width: 15rem;
-  position: fixed;
+  position: absolute;
   top: 6em;
   left: 0;
   height: calc(100vh);
@@ -30,6 +30,7 @@
   padding: 0 1rem;
   font-weight: 600;
   text-align: center;
+  display: flex;
 }
 
 .nav-text li {
@@ -48,6 +49,7 @@
   transition: 150ms;
 }
 .nav-menu-items {
+  position: absolute;
   width: 100%;
   background-color: rgb(250, 250, 250);
   list-style: none;

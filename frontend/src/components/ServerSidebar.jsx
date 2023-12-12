@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./ServerSidebar.css";
 import ChannelBox from './ChannelBox';
 import { Link } from 'react-router-dom';
+import NewChannel from './NewChannel';
 
 const ServerSidebar = ({ boardid }) => {
   const [channels, setChannels] = useState([]);
@@ -14,10 +15,12 @@ const ServerSidebar = ({ boardid }) => {
     const fetchChannels = async () => {
       try {
         console.log(board_id);
+        console.log(token);
+        
         const response = await fetch(
           `http://localhost:3000/channels/getAllChannel/${board_id}`,
           {
-            method: 'GET',
+            method: 'POST',
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -43,18 +46,20 @@ const ServerSidebar = ({ boardid }) => {
   }, [board_id, token]);
   
 
+
+
   useEffect(() => {
     const checkAdminStatus = async () => {
       try {
+        const accessToken = localStorage.getItem('accessToken');
         const response = await fetch(
-          `http://localhost:3000/isAdmin/checkAdminStatusById?_id=${board_id}`,
+          `http://localhost:3000/isAdmin/checkAdminStatusById?boardid=${board_id}`,
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: token,
+              Authorization: `Bearer ${accessToken}`,
             },
-
           }
         );
 
@@ -70,16 +75,19 @@ const ServerSidebar = ({ boardid }) => {
     };
 
     checkAdminStatus();
-  }, [board_id, token]);
-
-
+  }, [board_id]);
   return (
     
     <> 
       <div className="scroller">
         <div className="nav-menu">
           <div className="nav-title">
-            <p>CHANNELS</p>
+            <div><span>CHANNELS </span>
+              {isAdmin && <NewChannel boardid={board_id} />}
+              
+
+            </div>
+            
       
           </div>
           <ul className="nav-menu-items">

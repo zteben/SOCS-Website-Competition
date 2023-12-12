@@ -122,7 +122,7 @@ router.delete('/deleteBoard', authenticateToken, async (req, res) => {
 
     // Also delete related board members
     await BoardMember.deleteMany({ board: board._id });
-
+    await BoardChannel.deleteMany({ board: board._id });
     res.status(200).send('Board deleted successfully.');
   } catch (error) {
     console.error('Error fetching user information:', error);

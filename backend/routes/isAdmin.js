@@ -34,4 +34,31 @@ router.post('/checkAdminStatus', authenticateToken, async (req, res) => {
   }
 });
 
+router.post('/checkAdminStatusById', authenticateToken, async (req, res) => {
+  try {
+    const { boardid } = req.query; // Changed req.body to req.query
+    const user = await User.findOne({ username: req.user.username });
+
+    if (!boardid) {
+      return res.status(400).json({ error: 'Board name is required' });
+    }
+
+    const board = await Board.findOne({ _id: boardid });
+    if (!board) {
+      return res.status(404).json({ error: 'Board not found' });
+    }
+
+    const isAdmin = await BoardMember.findOne({
+      user: user._id,
+      board: board._id,
+      isAdmin: true,
+    });
+
+    res.json({ isAdmin: !!isAdmin }); // Convert isAdmin to a boolean
+  } catch (error) {
+    console.error('Error checking admin status:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 module.exports = router;

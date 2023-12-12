@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import "./ServerSidebar.css";
 import { Link } from 'react-router-dom';
+import FriendRequest from './FriendRequest';
 
 
 const DirectMessageSidebar = () => {
@@ -49,7 +50,9 @@ const DirectMessageSidebar = () => {
       
       <nav className="nav-menu">
         <div className="nav-title">
-          <p>FRIENDS</p>
+         
+          <p>FRIENDS</p> <FriendRequest /> 
+
        
      
         </div>
