@@ -44,13 +44,13 @@
     border-color: red;
 }
 
-h3 {
+.heading {
     font-size: 25px;
     font-weight: 600;
     margin-bottom: 40px;
 }
 
-input {
+.write {
     display: block;
     width: 100%;
     margin-top: 15px;
@@ -61,7 +61,7 @@ input {
     background-color: rgb(231, 236, 248);
 }
 
-button {
+.submit {
     background-color: #4caf50;
     color: white;
     padding: 10px 15px;
@@ -71,3 +71,4 @@ button {
     margin-top: 10px;
     margin-bottom: 30px;
 }
+

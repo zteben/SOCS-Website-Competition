@@ -1,0 +1,563 @@
+:root {
+    --headerAndFooter: #6495ed;
+    --focusHaF: #4374cf;
+    --backgroundColour: #faf0e6;
+    --highlightBG: #ffe6ce;
+    --whiteText: #fff3ed;
+    --blackText: black;
+    --timeStampColour: rgb(70, 70, 70);
+
+    /* --headerAndFooter: #6495ed;
+    --focusHaF: #4374cf;
+    --backgroundColour: #faf0e6;
+    --highlightBG: #ffe6ce;
+    --whiteText: #fff3ed;
+    --blackText: black;
+    --timeStampColour: rgb(70, 70, 70); */
+  }
+  
+  
+  html,body {
+      min-height: 100vh;
+      /* display: flex;
+      flex-flow: column;
+      height: 100%; */
+      margin: 0;
+      padding: 0;
+      /* height: 100%; */
+      overflow: auto; 
+      display: flex;
+      flex-direction: column;
+  }
+  
+  body {
+    flex: 1;
+  }
+
+  .channel-name {
+      font-family: 'Calibri', sans-serif;
+      font-size: x-large;
+      color: var(--whiteText);
+      background-color: var(--headerAndFooter);
+      position: relative;
+      top: 0;
+      justify-content: space-between; /* Aligns items to the start and end of the container */
+      align-items: center;
+      display: flex;
+      margin-top: 1em;
+      /* padding: 0; */
+      /* width: 100%; */
+  }
+
+  .settings{
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+
+  .settings-popup::-webkit-scrollbar {
+    width: 0.2em;
+  }
+  
+  /* Track */
+  .settings-popup::-webkit-scrollbar-track {
+    background:var(--backgroundColour)
+  }
+  
+  /* Handle */
+  .settings-popup::-webkit-scrollbar-thumb {
+    background: var(--headerAndFooter);
+    border-radius: 8px;
+  }
+  
+  /* Handle on hover */
+  .settings-popup::-webkit-scrollbar-thumb:hover {
+    background: var(--headerAndFooter);
+    cursor: pointer;
+  }
+  
+  .settingsButton {
+    color: var(--whiteText);
+    margin-right: 1em;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  
+  
+  h4 {
+      font-family: 'Calibri', sans-serif;
+      font-style: normal;
+      font-size: medium;
+      color: black;
+      /* background-color: #ffecec; */
+  }
+  
+  h5 {
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      font-style: bold;
+      color: black;
+      /* background-color: #ffecec; */
+  }
+  
+  h6 {
+      font-family: 'Calibri', sans-serif;
+      font-size: x-small;
+      color: rgb(70, 70, 70);
+      /* background-color: #ffecec; */
+  }
+  
+  p.user{
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      font-weight: bold;
+      color: var(--blackText);
+      align-items: center;
+      align-self: center;
+  }
+  
+  p.user:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  p.time{
+      font-family: 'Calibri', sans-serif;
+      font-size: x-small;
+      color: var(--timeStampColour);
+      align-items: center;
+      align-self: center;
+  }
+  
+  p.message{
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      color: var(--blackText);
+      white-space: pre-wrap;
+      /* margin-left: 3em; */
+  }
+  
+  .pfpContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .display-message{
+      margin-left: 1%;
+      overflow-wrap: break-word;
+      display: flex;
+      flex-direction: row;
+      border-radius: 1em;
+      flex: 1
+  }
+  
+  .display-message.hidden {
+    opacity: 0; /* Set opacity to 0 for hidden messages */
+    height: 0; /* Optionally, set height to 0 to collapse the hidden message */
+    padding: 0; /* Optionally, remove padding for collapsed message */
+    /* overflow: hidden; Hide overflow for collapsed message */
+  }
+  
+  .display-message:hover{
+    background-color: var(--highlightBG);
+  }
+  
+  /* .display-message button{
+    margin-left: auto;
+    margin-right: 1em;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: orange;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+  } */
+  
+  button.ellipsisButton {
+    margin-left: auto;
+    margin-right: 1em;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: orange;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+  }
+  
+  button.saveEditButton {
+    /* margin-left: auto; */
+    /* margin-right: 1em; */
+    /* margin-left: 20em; */
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: palevioletred;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+    width: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+  }
+  
+  
+  
+  #container {
+    /* height: 40vh;  */
+    /* display: flex; */
+    /* display: flex;
+    flex-flow: column; */
+    
+    flex: 1; 
+    overflow-y: scroll;
+    /* scroll-snap-type: y mandatory;  */
+  }
+  
+  /* .container {
+      display: flex;
+      flex-flow: column;
+      position: relative;
+      height: 60%;
+      overflow: auto;
+      border: 1px solid #ccc;
+    } */
+  
+    .overlay {
+      /* position: absolute; */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      z-index: 1; /* Place the overlay on top of the container */
+    }
+  
+    .content {
+      /* Add your content styles here */
+      /* padding: 10px; */
+    }
+  
+  .welcome {
+      font-family: 'Calibri', sans-serif;
+      font-size: xx-large;
+      font-weight: bold;
+      padding: 1%;
+      padding-top: 3%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      align-self: center;
+      color: var(--blackText);
+  }
+  
+  .welcome-sub {
+      font-family: 'Calibri', sans-serif;
+      text-align: center;
+      padding-bottom: 3%;
+  }
+  
+  .scroll{
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .message-form {
+      position: relative;
+      /* bottom: 0; */
+      /* left: 0; */
+      width: 98%;
+      border-style: solid;
+      border-color: var(--headerAndFooter);
+      border-width: 0.3em;
+      /* height: 2.5em; */
+      /* padding-top: 0.5em; */
+      /* display: flex; */
+      /* padding: 10px; */
+      /* padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      padding-left: 0.5em;
+      padding-right: 0.5em; */
+      background-color: var(--headerAndFooter);
+      border-radius: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      /* box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1); */
+    }
+  
+    .message-div {
+      /* border-radius: 40%; */
+      /* border-top-right-radius: 3%; */
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+      /* justify-content: space-between; */
+      
+    }
+  
+    .messages-and-send {
+      height: 90%;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
+  
+    .all-messages {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 1%;
+      overflow-y: auto;
+    }
+    
+    /* Style for the input field */
+    .message-form textarea {
+      flex: 1; /* Take up available space */
+      /* min-width: 0; Allow the textarea to shrink */
+      width: 80%; /* Adjust as needed */
+      padding: 0.5%;
+      border: none;
+      background-color: var(--backgroundColour);
+      /* border-radius: 10px; */
+      overflow-wrap: break-word;
+      resize: none;
+      overflow: auto;
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      color: var(--blackText);
+      border-top-left-radius: 1em;
+      border-bottom-left-radius: 1em;
+  
+      /* height: 1em; */
+  
+    }
+  
+    .message-form textarea:focus {
+      outline: none;
+      /* border: 2px solid rgb(255, 0, 183); Add a custom border style on focus */
+    }
+  
+    .message-form textarea:disabled {
+      background-color: black; /* Adjust the color as needed */
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  
+    .message-form:disabled {
+      background-color: black; /* Adjust the color as needed */
+    }
+    
+    /* Style for the send button */
+    .message-form button {
+      /* width: 5%; Adjust as needed */
+      padding: 0.5%;
+      background-color: var(--backgroundColour);
+      color: var(--headerAndFooter);
+      border: none;
+      /* border-radiufs: 5px; */
+      cursor: pointer;
+      margin-right: 1em;
+    }
+  
+    .message-form button:disabled{
+      background-color: black;
+      opacity: 0.5;
+    }
+  
+    .message-form .message-div {
+      display: flex; /* Use flexbox for the message div */
+      align-items: center; /* Align items vertically */
+  }
+    
+    /* Clearfix to contain floated button */
+    .message-form::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  
+    /* .userInfoPopup {
+      background-color: var(--backgroundColour);
+      color: green;
+    } */
+  
+    .editButton {
+      background-color: transparent;
+      color: var(--whiteText);
+      cursor: pointer;
+      border: none;
+      margin-right: 0.5em;
+    }
+  
+    .deleteButton {
+      background-color: transparent;
+      color: var(--whiteText);
+      cursor: pointer;
+      border: none;
+      margin-right: 0.5em;
+      text-align: center;
+    }
+  
+    .DMbutton {
+      /* background-color: green; */
+      background-color: var(--headerAndFooter);
+      color: var(--whiteText);
+      padding: 5%; /* Adjust padding as needed */
+      border: none;
+      cursor: pointer;
+      border-radius: 10%;
+      /* cursor: pointer; */
+    }
+  
+    .DMbutton:hover {
+      background-color: var(--focusHaF);
+    }
+  
+    .tooltip-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      text-align: center; /* Center text horizontally */
+    }
+  
+    .editingText {
+      display: flex;
+      align-items: center;
+      background-color: pink;
+      border-radius: 0.2em;
+      flex: 1;
+      /* width: 600%; */
+      box-sizing: border-box;
+    }
+  
+    .editingText textarea{
+      background-color: pink;
+      color: var(--blackText);
+      flex: 1; /* Take up available space */
+      border: none;
+      overflow-wrap: break-word;
+      resize: none;
+      overflow: auto;
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      /* max-width: 100em; */
+      /* border-radius: 1em; */
+  
+    }
+  
+    .editingText textarea:focus {
+      outline: none;
+    }
+  
+  
+    .editedSuffix {
+      font-style: italic;
+    }
+  
+    .settings-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .settings-popup {
+      background: var(--backgroundColour);
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 1; /* Ensure the popup is above other elements */
+      color: var(--blackText);
+      
+       /* Add Flexbox properties */
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+
+       max-height: 70vh; /* Set a fixed height for the popup container */
+       overflow-y: auto; /* Enable vertical scrolling */
+       justify-content: flex-start;
+       
+    
+      /* Center the popup */
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); */
+    }
+  
+    .closePopupButton {
+      border: none;
+      background-color: var(--headerAndFooter);
+      color: var(--whiteText);
+      cursor: pointer;
+      border-radius: 1em;
+      /* height: 1.5em; */
+      /* padding-left: 0.5em; */
+      padding: 0.25em;
+      margin-top: 1em;
+  
+    }
+
+  .search-input {
+    /* border: none; */
+      min-height: 20px;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      background-color: var(--backgroundColour);
+      /* border-radius: 10px; */
+      overflow-wrap: break-word;
+      resize: none;
+      overflow: auto;
+      font-family: 'Calibri', sans-serif;
+      font-size: medium;
+      color:var(--blackText);
+      border-radius: 0.5em;
+      border-width: 0.25em;
+      border-color: var(--headerAndFooter);
+  }
+    
+    
+  
+    /* width */
+  #container::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  
+  /* Track */
+  #container::-webkit-scrollbar-track {
+    background:var(--backgroundColour)
+  }
+  
+  /* Handle */
+  #container::-webkit-scrollbar-thumb {
+    background: var(--headerAndFooter);
+    border-radius: 8px;
+  }
+  
+  /* Handle on hover */
+  #container::-webkit-scrollbar-thumb:hover {
+    background: var(--headerAndFooter);
+    cursor: pointer;
+  }
+  
+  *{
+      padding: 0%;
+      margin: 0;
+      font-family: 'Calibri', sans-serif;
+      /* background-color: var(--backgroundColour); */
+  }
+  
+  
+  

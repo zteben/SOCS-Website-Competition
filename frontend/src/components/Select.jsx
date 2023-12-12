@@ -82,7 +82,7 @@ const Select = () => {
         <AddBoardForm onBoardAdded={handleBoardAdded} />
         <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
-            <Link key={board._id} to={`/boards/${board.name}`}>
+            <Link key={board._id} to={`/boards?&board_name=${board.name}`}>
               <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}

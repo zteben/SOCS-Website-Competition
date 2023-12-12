@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import SelectPage from './pages/SelectPage';
 import Sidetest from './pages/Sidetest';
+import Board from './pages/Board';
+import DMs from './pages/DMs';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/select" element={<SelectPage />} />
           <Route path="/Sidetest" element={<Sidetest />}></Route>
+          <Route path="/boards"  element={<Board/>} />
+          <Route path="/dm" element={<DMs/>} />
         </Routes>
       </BrowserRouter>
     </div>

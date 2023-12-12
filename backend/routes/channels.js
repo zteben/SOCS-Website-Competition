@@ -70,6 +70,7 @@ router.post('/createChannel', authenticateToken, async (req, res) => {
         return res.status(400).send('Error creating channel');
     }
 
+
     res.status(201).json(savedChannel);
 
    } catch (error) {
@@ -82,4 +83,7 @@ router.post('/createChannel', authenticateToken, async (req, res) => {
 
 // delete channel
 
+
 module.exports = router;
+
+
