@@ -16,11 +16,10 @@ const ServerSidebar = ({ boardid }) => {
       try {
         console.log(board_id);
         console.log(token);
-        
         const response = await fetch(
           `http://localhost:3000/channels/getAllChannel/${board_id}`,
           {
-            method: 'POST',
+            method: 'GET',
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -46,47 +45,44 @@ const ServerSidebar = ({ boardid }) => {
   }, [board_id, token]);
   
 
+  // useEffect(() => {
+  //   const checkAdminStatus = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:3000/isAdmin/checkAdminStatusById?_id=${board_id}`,
+  //         {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //             Authorization: token,
+  //           },
+
+  //         }
+  //       );
+
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+
+  //       const data = await response.json();
+  //       setIsAdmin(data.isAdmin);
+  //     } catch (error) {
+  //       console.error('Error checking admin status:', error);
+  //     }
+  //   };
+
+  //   checkAdminStatus();
+  // }, [board_id, token]);
 
 
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken');
-        const response = await fetch(
-          `http://localhost:3000/isAdmin/checkAdminStatusById?boardid=${board_id}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setIsAdmin(data.isAdmin);
-      } catch (error) {
-        console.error('Error checking admin status:', error);
-      }
-    };
-
-    checkAdminStatus();
-  }, [board_id]);
   return (
     
     <> 
       <div className="scroller">
         <div className="nav-menu">
           <div className="nav-title">
-            <div><span>CHANNELS </span>
-              {isAdmin && <NewChannel boardid={board_id} />}
-              
-
-            </div>
+            <p>CHANNELS</p>
+            <NewChannel boardid={board_id} />
             
       
           </div>

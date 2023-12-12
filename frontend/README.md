@@ -1,3 +1,5 @@
+Run "npm start -- --host 0.0.0.0", then open the url next to "On Your Network".
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

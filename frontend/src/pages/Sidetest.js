@@ -6,7 +6,7 @@ const Sidetest = () => {
   
   return (
     <div>   
-    <ServerSidebar boardid = "6577b9be12dab26aff484bd8"/>
+    <ServerSidebar boardid = "6577cee34f9641ba03f829a8"/>
     
     </div>
 

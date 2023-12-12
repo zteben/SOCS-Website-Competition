@@ -52,6 +52,7 @@ router.post('/createChannel', authenticateToken, async (req, res) => {
    try {
     // console.log("BONK")
     const { channelname, boardid } = req.body;
+    console.log(channelname, boardid);
     const channelexist = await Channel.findOne({ channelname: channelname }); 
     const board = await Board.findById({ _id: boardid });
     if (channelexist) {
