@@ -1,0 +1,6 @@
+h1,
+.AddBoardForm,
+.boards-container {
+  margin-top: 2rem; /* Adjust as needed */
+  text-align: center;
+}

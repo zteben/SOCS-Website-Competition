@@ -1,10 +1,11 @@
 // Select.jsx
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import DiscussionBoard from './DiscussionBoard';
 import DirectMessageSidebar from './DirectMessageSidebar';
 import AddBoardForm from './AddBoardForm';
 import SelectNav from './SelectNav';
+import './Select.css';
 
 const Select = () => {
   const navigate = useNavigate();
@@ -31,7 +32,6 @@ const Select = () => {
 
       const data = await response.json();
       setBoards(data);
-
     } catch (error) {
       console.error('Error fetching boards:', error);
     }
@@ -79,10 +79,12 @@ const Select = () => {
       <div style={containerStyle}>
         <br></br>
         <h1 style={headerStyle}>Your Discussion Boards</h1> <br></br>
-        <AddBoardForm onBoardAdded={handleBoardAdded} />
+        <div>
+          <AddBoardForm className="container" onBoardAdded={handleBoardAdded} />
+        </div>
         <div style={{ marginTop: '2rem' }}>
           {boards.map((board) => (
-            <Link key={board._id} to={`/boards?&board_name=${board.name}`}>
+            <Link key={board._id} to={`/boards/${board.name}`}>
               <DiscussionBoard boardName={board.name} isDarkMode={isDarkMode} />
             </Link>
           ))}
