@@ -77,11 +77,13 @@ const NotificationButton = () => {
         
         {isNotificationVisible && (
         <div className="notification">
-            <ul className="requests">
+            <ul >
                 {friends.map((friend, index) => (
-                    <li key={index} className="pending-request">
+                    <li key={index} className="requests" >
+                        <div className="pending-request">
                     <span>{friend.username}</span>
                     <button className="accept" onClick={()=>{acceptFriend(index)}}>Accept</button>
+                    </div>
                     </li>
                 ))}
             </ul>
