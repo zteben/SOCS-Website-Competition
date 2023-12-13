@@ -5,6 +5,7 @@ const Board = require('../models/Board');
 const BoardChannel = require('../models/BoardChannel');
 const BoardMember = require('../models/BoardMember');
 const authenticateToken = require('../middleware/authenticateToken');
+const Channel = require('../models/Channel');
 
 //get board
 router.get('/getBoard', authenticateToken, async (req, res) => {
@@ -103,6 +104,11 @@ router.post('/createBoard', authenticateToken, async (req, res) => {
       isAdmin: true,
     });
     const savedBoardMember = await newBoardMember.save();
+    const newchannel = new Channel({ name: 'general' });
+    const savegeneral = await newchannel.save();
+    console.log(savegeneral);
+    const newBoardChannel = new BoardChannel({channel: savegeneral._id, board: savedBoard._id});
+    const savedBoardChannel = await newBoardChannel.save();
     res.json(savedBoard);
   } catch (error) {
     console.error('Error fetching user information:', error);
@@ -197,6 +203,7 @@ router.post('/addMember', authenticateToken, async (req, res) => {
 router.delete('/deleteMember', authenticateToken, async (req, res) => {
   try {
     const { username, name } = req.body; // username of person to delete, name of board
+    console.log(username, name);
     const user_to_delete = await User.findOne({ username: username });
     const user = await User.findOne({ username: req.user.username });
     console.log(user_to_delete);

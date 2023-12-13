@@ -21,9 +21,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/select" element={<SelectPage />} />
           <Route path="/Sidetest" element={<Sidetest />}></Route>
-          <Route path="/boards"  element={<Board/>} />
-          <Route path="/dm" element={<DMs/>} />
           <Route path="/:boardname" element={<Board />} />
+          <Route path="/dms/:friendid" element={<DMs />} />
           
         </Routes>
       </BrowserRouter>

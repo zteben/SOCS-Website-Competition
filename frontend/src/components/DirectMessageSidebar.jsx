@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import FriendRequest from './FriendRequest';
 
 
-const DirectMessageSidebar = () => {
+const DirectMessageSidebar = ( username) => {
   const [friends, setfriends] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(
     window.matchMedia('(prefers-color-scheme: dark)').matches
   );
+  
   useEffect(() => {
     const updateDarkMode = (event) => {
       setIsDarkMode(event.matches);
@@ -77,7 +78,7 @@ const DirectMessageSidebar = () => {
             {
               friends.map((friend,index) => {
               return(
-                <Link key={friend._id} to={`/${friend._id}`}>
+                <Link key={friend._id} to={`/dms/${friend._id}`}>
                 
                   <li key={index} className="nav-text">
                     <span>{friend.username}</span>

@@ -1,31 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import MessagingDM from '../components/MessagingDM';
 // import React, { useState, useEffect, useRef } from 'react';
 
 import './../TEMP.css';
 import './../components/Board.css';
+import DirectMessageSidebar from '../components/DirectMessageSidebar';
+import SelectNav from '../components/BoardNav';
+import GetuserNameByID from '../components/GetUserNameById';
 
 
 const DMs = () => {
+  const {friendid} = useParams();
+  
+
   return (
     <div className="entirePage">
-      <div className="board">Board</div>
+      <div><SelectNav/> </div>
       <div className="content">
         <div className="sidebar">
-          <h2>Sidebar</h2>
-          <ul>
-            <li>Sarah</li>
-            <li>George</li>
-            <li>Leo</li>
-          </ul>
-        </div>
-        <div className="messagingContainerStyle">
-        <MessagingDM 
-            friendUserNameProps = {'hello'} // channel object
-            currUserName = {'CoolProf'} //user object
-        />
-        </div>
+            <DirectMessageSidebar />
+          </div>
+          <div className="messagingContainerStyle">
+          
+          <MessagingDM 
+              friendUserNameProps = {'DMS'} // channel object
+              currUserName = {'CoolProf'} //user object
+          />
+          <GetuserNameByID userid= {friendid} />
+          </div>
       </div>
       
     </div>

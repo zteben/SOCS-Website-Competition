@@ -49,5 +49,21 @@ router.get('/getUserIdByUsername', authenticateToken, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+router.get('/getUserById/', authenticateToken, async (req, res) => {
+    try{
+        const { userId } = req.query;
+        console.log(userId)
+        const user = await User.findById({ _id: userId });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+        console.log(user)
+
+    } catch (error) {
+        console.error('Error fetching user by id:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 module.exports = router;
