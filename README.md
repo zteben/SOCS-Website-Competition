@@ -8,10 +8,5 @@ Ally Zhang: Discussion board page, creating and deleting boards, logout button
 
 Michael Xi: Sidebar for discussion boards, Sidebar for direct messages,  creating channels, adding members, deleting members, adding friends, linking pages together
 
-ISABELLA DROUIN - MESSAGING
-### Features and components
-### Send message
-### Delete your own message
-### Hover on profile pic or username to redirect to DM
-### Search through messages with search functionality
-### Send DM message to other individual users
+Isabella Drouin: Messaging
+
